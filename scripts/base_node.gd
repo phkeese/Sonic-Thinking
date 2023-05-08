@@ -9,7 +9,9 @@ var _output_buffers : Dictionary
 # Push a new buffer to the specified input to be consumed by run()
 # Called by Workspace before run()
 func push_input(slot: int, data: PackedVector2Array):
-	_get_input_buffer(slot).append_array(data)
+	var buffer := _get_input_buffer(slot)
+	buffer.append_array(data)
+	_set_input_buffer(slot,buffer)
 
 
 # Get input from specified slot and pad with Zero
@@ -33,7 +35,9 @@ func run(sample_count: int):
 # Push a new buffer to the output to be consumed by other nodes
 # Called by run() to append to outputs
 func push_output(slot: int, data: PackedVector2Array):
-	_get_output_buffer(slot).append_array(data)
+	var buffer := _get_output_buffer(slot)
+	buffer.append_array(data)
+	_output_buffers[slot] = buffer
 
 
 # Get output from specified slot and pad with Zero
@@ -41,7 +45,7 @@ func push_output(slot: int, data: PackedVector2Array):
 func consume_output(slot: int, count: int) -> PackedVector2Array:
 	var buffer := _get_output_buffer(slot)
 	var data := buffer.slice(0,count)
-	var leftover := buffer.slice(-count)
+	var leftover := buffer.slice(count)
 	_set_output_buffer(slot, leftover)
 	return pad_with(data, Vector2.ZERO, count)
 

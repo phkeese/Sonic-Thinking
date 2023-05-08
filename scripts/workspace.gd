@@ -26,8 +26,11 @@ class Connection:
 
 
 func _process(delta: float) -> void:
-	var sample_count := 512 # Debug value, derive from audio player later
-	_update_nodes(sample_count)
+	var sample_count := SynthGlobals.sample_rate # Debug value, derive from audio player later
+	if SynthGlobals.is_playing:
+		_update_nodes(sample_count)
+		SynthGlobals.advance(sample_count)
+		print("updated nodes with %s samples" % sample_count)
 
 
 func _update_nodes(sample_count: int) -> void:
@@ -36,9 +39,19 @@ func _update_nodes(sample_count: int) -> void:
 	var order := _get_compute_order()
 	for node in order:
 		# Set all inputs
-		_get_nice_connections()\
-			.filter(func(c: Connection): c.to == node)\
-			.map(func(c: Connection): node.push_input(c.to_port, output_cache[c.from][c.from_port]))
+		print(_get_nice_connections())
+		var connections : Array[Connection] = []
+		for c in _get_nice_connections():
+			if c.to == node:
+				connections.append(c)
+				
+		for conn in connections:
+			var from := conn.from
+			var from_port := conn.from_port
+			var to_port := conn.to_port
+			var data := output_cache[from][from_port] as PackedVector2Array
+			node.push_input(to_port, data)
+			
 		# Compute outputs
 		node.run(sample_count)
 		

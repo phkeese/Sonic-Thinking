@@ -34,14 +34,9 @@ regex = "\\d+"
 placeholder_text = "e.g. 80"
 value = "120"
 
-[node name="Timer" type="Timer" parent="." index="1"]
-wait_time = 0.5
-autostart = true
-
-[node name="Display" type="TextureRect" parent="." index="2"]
+[node name="Display" type="TextureRect" parent="." index="1"]
 layout_mode = 2
 texture = ExtResource("3_kuwgr")
 stretch_mode = 2
 
 [connection signal="changed" from="BPM" to="." method="_on_bpm_changed"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

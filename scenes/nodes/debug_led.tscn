@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgjpo3jju81r2"]
+[gd_scene load_steps=6 format=3 uid="uid://dgjpo3jju81r2"]
 
 [ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/nodes/base_node.tscn" id="1_lvp4g"]
 [ext_resource type="Script" path="res://scripts/debug_led.gd" id="2_6n778"]
 [ext_resource type="Texture2D" uid="uid://gedal3tspk3a" path="res://assets/ui/grey_tickWhite.png" id="2_j60vh"]
 [ext_resource type="Script" path="res://scripts/LED.gd" id="3_1417x"]
+[ext_resource type="AudioStream" uid="uid://dbroxmwsmdls3" path="res://assets/sound/click2.mp3" id="5_gp2q3"]
 
 [node name="Debug LED" groups=["output"] instance=ExtResource("1_lvp4g")]
 title = "Debug Node"
@@ -24,3 +25,6 @@ layout_mode = 2
 texture = ExtResource("2_j60vh")
 stretch_mode = 2
 script = ExtResource("3_1417x")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource("5_gp2q3")
