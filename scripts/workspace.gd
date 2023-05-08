@@ -39,7 +39,6 @@ func _update_nodes(sample_count: int) -> void:
 	var order := _get_compute_order()
 	for node in order:
 		# Set all inputs
-		print(_get_nice_connections())
 		var connections : Array[Connection] = []
 		for c in _get_nice_connections():
 			if c.to == node:
