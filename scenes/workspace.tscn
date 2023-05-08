@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://duombub3mfuvx"]
+
+[ext_resource type="Script" path="res://scripts/workspace.gd" id="1_t2f0b"]
+[ext_resource type="PackedScene" uid="uid://bvjinb27uweq7" path="res://scenes/nodes/blip_node.tscn" id="2_uo8ra"]
+[ext_resource type="PackedScene" uid="uid://fsbm5b04m7dg" path="res://scenes/nodes/clock_node.tscn" id="2_vyl8b"]
+
+[node name="Workspace" type="GraphEdit"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+right_disconnects = true
+script = ExtResource("1_t2f0b")
+
+[node name="BlipNode" parent="." instance=ExtResource("2_uo8ra")]
+layout_mode = 0
+offset_left = 834.0
+offset_top = 327.0
+offset_right = 1041.0
+offset_bottom = 412.0
+mouse_filter = 1
+position_offset = Vector2(834, 327)
+
+[node name="ClockNode" parent="." instance=ExtResource("2_vyl8b")]
+layout_mode = 0
+offset_left = 203.0
+offset_top = 243.0
+offset_right = 410.0
+offset_bottom = 347.0
+mouse_filter = 1
+position_offset = Vector2(203, 243)
+
+[node name="ClockNode2" parent="." instance=ExtResource("2_vyl8b")]
+layout_mode = 0
+offset_left = 302.0
+offset_top = 709.0
+offset_right = 509.0
+offset_bottom = 813.0
+mouse_filter = 1
+position_offset = Vector2(302, 709)
+slot/0/right_type = 1
+slot/0/right_color = Color(0.282353, 1, 0, 1)
+
+[connection signal="connection_request" from="." to="." method="_on_connection_request"]
+[connection signal="disconnection_request" from="." to="." method="_on_disconnection_request"]

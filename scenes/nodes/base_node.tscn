@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2ynxndw7v6fk"]
+
+[ext_resource type="Script" path="res://scripts/base_node.gd" id="1_qx7pi"]
+
+[node name="BaseNode" type="GraphNode"]
+process_mode = 4
+offset_right = 36.0
+offset_bottom = 54.0
+script = ExtResource("1_qx7pi")
+
+[node name="Canary" type="Node" parent="."]

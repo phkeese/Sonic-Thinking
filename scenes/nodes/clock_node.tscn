@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://fsbm5b04m7dg"]
+
+[ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/nodes/base_node.tscn" id="1_5c1b6"]
+[ext_resource type="Script" path="res://scripts/clock_node.gd" id="1_8gijc"]
+[ext_resource type="PackedScene" uid="uid://ckkldypaqa4fy" path="res://scenes/helpers/output_edit.tscn" id="1_whk1n"]
+[ext_resource type="Texture2D" uid="uid://gedal3tspk3a" path="res://assets/ui/grey_tickWhite.png" id="3_kuwgr"]
+
+[node name="ClockNode" instance=ExtResource("1_5c1b6")]
+title = "Clock Node"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 0, 0, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("1_8gijc")
+
+[node name="BPM" parent="." index="0" instance=ExtResource("1_whk1n")]
+layout_mode = 2
+label = "BPM"
+regex = "\\d+"
+placeholder_text = "e.g. 80"
+value = "120"
+
+[node name="Timer" type="Timer" parent="." index="1"]
+wait_time = 0.5
+autostart = true
+
+[node name="Display" type="TextureRect" parent="." index="2"]
+layout_mode = 2
+texture = ExtResource("3_kuwgr")
+stretch_mode = 2
+
+[connection signal="changed" from="BPM" to="." method="_on_bpm_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
