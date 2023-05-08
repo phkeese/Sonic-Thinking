@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgjpo3jju81r2"]
+
+[ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/nodes/base_node.tscn" id="1_lvp4g"]
+[ext_resource type="Script" path="res://scripts/debug_led.gd" id="2_6n778"]
+[ext_resource type="Texture2D" uid="uid://gedal3tspk3a" path="res://assets/ui/grey_tickWhite.png" id="2_j60vh"]
+[ext_resource type="Script" path="res://scripts/LED.gd" id="3_1417x"]
+
+[node name="Debug LED" groups=["output"] instance=ExtResource("1_lvp4g")]
+title = "Debug Node"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 0, 0, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("2_6n778")
+
+[node name="LED" type="TextureRect" parent="." index="1"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("2_j60vh")
+stretch_mode = 2
+script = ExtResource("3_1417x")

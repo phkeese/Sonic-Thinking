@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://dbroxmwsmdls3" path="res://assets/sound/click2.mp3" id="2_y1gpr"]
 
 [node name="BlipNode" instance=ExtResource("1_6o5j3")]
+title = "Blip Node"
 slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)

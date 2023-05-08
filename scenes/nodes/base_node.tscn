@@ -5,6 +5,8 @@
 [node name="BaseNode" type="GraphNode"]
 offset_right = 36.0
 offset_bottom = 54.0
+title = "Base Node"
+show_close = true
 script = ExtResource("1_qx7pi")
 
 [node name="Canary" type="Node" parent="."]

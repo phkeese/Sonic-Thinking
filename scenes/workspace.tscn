@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://duombub3mfuvx"]
+[gd_scene load_steps=4 format=3 uid="uid://duombub3mfuvx"]
 
 [ext_resource type="Script" path="res://scripts/workspace.gd" id="1_t2f0b"]
 [ext_resource type="Script" path="res://scripts/base_node.gd" id="2_heebu"]
-[ext_resource type="PackedScene" uid="uid://bvjinb27uweq7" path="res://scenes/nodes/blip_node.tscn" id="2_uo8ra"]
-[ext_resource type="PackedScene" uid="uid://fsbm5b04m7dg" path="res://scenes/nodes/clock_node.tscn" id="2_vyl8b"]
-[ext_resource type="PackedScene" uid="uid://chgsa5t53rrfq" path="res://scenes/nodes/test_node.tscn" id="5_4p8tk"]
+[ext_resource type="PackedScene" uid="uid://bker7eafiot0k" path="res://scenes/add_node_menu.tscn" id="6_n5equ"]
 
 [node name="Workspace" type="GraphEdit"]
 anchors_preset = 15
@@ -17,7 +15,7 @@ size_flags_vertical = 3
 right_disconnects = true
 script = ExtResource("1_t2f0b")
 
-[node name="Output" type="GraphNode" parent="."]
+[node name="Output" type="GraphNode" parent="." groups=["output"]]
 layout_mode = 0
 offset_left = 841.0
 offset_top = 503.0
@@ -40,70 +38,9 @@ script = ExtResource("2_heebu")
 layout_mode = 2
 text = "Output"
 
-[node name="ClockNode" parent="." instance=ExtResource("2_vyl8b")]
-layout_mode = 0
-offset_left = 203.0
-offset_top = 243.0
-offset_right = 410.0
-offset_bottom = 347.0
-mouse_filter = 1
-position_offset = Vector2(203, 243)
-
-[node name="ClockNode2" parent="." instance=ExtResource("2_vyl8b")]
-layout_mode = 0
-offset_left = 302.0
-offset_top = 709.0
-offset_right = 509.0
-offset_bottom = 813.0
-mouse_filter = 1
-position_offset = Vector2(302, 709)
-slot/0/right_type = 1
-slot/0/right_color = Color(0.282353, 1, 0, 1)
-
-[node name="BlipNode" parent="." instance=ExtResource("2_uo8ra")]
-layout_mode = 0
-offset_left = 834.0
-offset_top = 327.0
-offset_right = 1041.0
-offset_bottom = 412.0
-mouse_filter = 1
-position_offset = Vector2(834, 327)
-
-[node name="TestNode" parent="." instance=ExtResource("5_4p8tk")]
-layout_mode = 0
-offset_left = 744.0
-offset_top = 678.0
-offset_right = 966.0
-offset_bottom = 763.0
-mouse_filter = 1
-position_offset = Vector2(744, 678)
-
-[node name="TestNode2" parent="." instance=ExtResource("5_4p8tk")]
-layout_mode = 0
-offset_left = 1089.0
-offset_top = 614.0
-offset_right = 1311.0
-offset_bottom = 699.0
-mouse_filter = 1
-position_offset = Vector2(1089, 614)
-
-[node name="TestNode3" parent="." instance=ExtResource("5_4p8tk")]
-layout_mode = 0
-offset_left = 972.0
-offset_top = 864.0
-offset_right = 1194.0
-offset_bottom = 949.0
-mouse_filter = 1
-position_offset = Vector2(972, 864)
-
-[node name="TestNode4" parent="." instance=ExtResource("5_4p8tk")]
-layout_mode = 0
-offset_left = 785.0
-offset_top = 941.0
-offset_right = 1007.0
-offset_bottom = 1026.0
-mouse_filter = 1
-position_offset = Vector2(785, 941)
+[node name="AddMenu" parent="." instance=ExtResource("6_n5equ")]
 
 [connection signal="connection_request" from="." to="." method="_on_connection_request"]
 [connection signal="disconnection_request" from="." to="." method="_on_disconnection_request"]
+[connection signal="popup_request" from="." to="." method="_on_popup_request"]
+[connection signal="add_node" from="AddMenu" to="." method="_on_add_menu_add_node"]

@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://scripts/test_node.gd" id="2_bncgw"]
 
 [node name="TestNode" instance=ExtResource("1_aig3m")]
-process_mode = 0
 title = "Test Node"
 slot/0/left_enabled = false
 slot/0/left_type = 0
