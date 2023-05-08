@@ -1,7 +1,7 @@
 extends Node
 
 
-var sample_rate := 10 :
+var sample_rate := 48_000 :
 	get:
 		return sample_rate
 	set(value):

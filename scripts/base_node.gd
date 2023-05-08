@@ -19,7 +19,7 @@ func push_input(slot: int, data: PackedVector2Array):
 func consume_input(slot: int, count: int) -> PackedVector2Array:
 	var buffer := _get_input_buffer(slot)
 	var data := buffer.slice(0,count)
-	var leftover := buffer.slice(-count)
+	var leftover := buffer.slice(count)
 	_set_input_buffer(slot, leftover)
 	return pad_with(data, Vector2.ZERO, count)
 

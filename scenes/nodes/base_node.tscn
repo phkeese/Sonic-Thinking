@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/base_node.gd" id="1_qx7pi"]
 
-[node name="BaseNode" type="GraphNode"]
+[node name="BaseNode" type="GraphNode" groups=["audio"]]
 offset_right = 36.0
 offset_bottom = 54.0
 title = "Base Node"

@@ -76,10 +76,10 @@ func _on_disconnection_request(from_node: StringName, from_port: int, to_node: S
 	var to := get_node(str(to_node)) as BaseNode
 
 
-# Get all nodes without consumers
-func _get_output_nodes() -> Array[BaseNode]:
+# Get all audio nodes
+func _get_audio_nodes() -> Array[BaseNode]:
 	var nodes : Array[BaseNode] = []
-	for node in get_tree().get_nodes_in_group("output"):
+	for node in get_tree().get_nodes_in_group("audio"):
 		nodes.append(node)
 	return nodes
 
@@ -87,8 +87,8 @@ func _get_output_nodes() -> Array[BaseNode]:
 # Recompute the global order of computation for all nodes
 func _get_compute_order() -> Array[BaseNode]:
 	var order : Array[BaseNode] = []
-	for output in _get_output_nodes():
-		_build_tree(output, order)
+	for node in _get_audio_nodes():
+		_build_tree(node, order)
 	return order
 
 
