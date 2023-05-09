@@ -2,8 +2,24 @@ extends GraphNode
 class_name BaseNode
 
 
+# Emitted when a connection to this node is made
+signal connection_created(from: BaseNode, from_port: int, to: BaseNode, to_port: int)
+# Emitted when a connection to this node is destroyed
+signal connection_destroyed(from: BaseNode, from_port: int, to: BaseNode, to_port: int)
+
+
 var _input_buffers : Dictionary
 var _output_buffers : Dictionary
+
+
+func _ready() -> void:
+	var parent := get_parent_control() as Workspace
+	if not parent:
+		return
+		
+	# Monitor parent for connections and emit own signal in case one is made	
+	parent.connection_created.connect(self._on_parent_connection_created)
+	parent.connection_destroyed.connect(self._on_parent_connection_destroyed)
 
 
 # Push a new buffer to the specified input to be consumed by run()
@@ -73,3 +89,12 @@ func pad_with(data: PackedVector2Array, value: Vector2, count: int) -> PackedVec
 	padding.fill(value)
 	data.append_array(padding)
 	return data
+
+
+func _on_parent_connection_created(from: BaseNode, from_port: int, to: BaseNode, to_port: int) -> void:
+	if self == to or self == from:
+		self.connection_created.emit(from,from_port,to,to_port)
+
+func _on_parent_connection_destroyed(from: BaseNode, from_port: int, to: BaseNode, to_port: int) -> void:
+	if self == to or self == from:
+		self.connection_destroyed.emit(from,from_port,to,to_port)

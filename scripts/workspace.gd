@@ -2,6 +2,12 @@ extends GraphEdit
 class_name Workspace
 
 
+# Emitted when a connection is made, not just requested
+signal connection_created(from: BaseNode, from_port: int, to: BaseNode, to_port: int)
+# Emitted when a connection is destroyed, not just requested
+signal connection_destroyed(from: BaseNode, from_port: int, to: BaseNode, to_port: int)
+
+
 enum SignalTypes {
 	Gate = 0,
 	Frequency = 1,
@@ -68,12 +74,14 @@ func _on_connection_request(from_node: StringName, from_port: int, to_node: Stri
 		return
 		
 	connect_node(from_node, from_port, to_node, to_port)
+	self.connection_created.emit(from, from_port, to, to_port)
  
 
 func _on_disconnection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
 	disconnect_node(from_node, from_port, to_node, to_port)
 	var from := get_node(str(from_node)) as BaseNode
 	var to := get_node(str(to_node)) as BaseNode
+	self.connection_destroyed.emit(from, from_port, to, to_port)
 
 
 # Get all audio nodes

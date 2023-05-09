@@ -25,6 +25,10 @@ SynthGlobals="*res://scripts/autoload/synth_globals.gd"
 window/size/viewport_width=2000
 window/size/viewport_height=1500
 
+[gui]
+
+theme/custom="res://resources/dark_theme.tres"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
