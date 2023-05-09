@@ -3,9 +3,9 @@ class_name Workspace
 
 
 # Emitted when a connection is made, not just requested
-signal connection_created(from: BaseNode, from_port: int, to: BaseNode, to_port: int)
+signal connection_created(connection: Connection)
 # Emitted when a connection is destroyed, not just requested
-signal connection_destroyed(from: BaseNode, from_port: int, to: BaseNode, to_port: int)
+signal connection_destroyed(connection: Connection)
 
 
 enum SignalTypes {
@@ -14,21 +14,6 @@ enum SignalTypes {
 	Tone = 2,
 	Waveform = 3,
 }
-
-class Connection:
-	var from: BaseNode
-	var to: BaseNode
-	var from_port: int
-	var to_port: int
-	
-	func _init(from: BaseNode, from_port: int, to: BaseNode, to_port: int) -> void:
-		self.from = from
-		self.from_port = from_port
-		self.to = to
-		self.to_port = to_port
-
-
-@onready var _output_node := $Output
 
 
 func _process(delta: float) -> void:
@@ -74,14 +59,14 @@ func _on_connection_request(from_node: StringName, from_port: int, to_node: Stri
 		return
 		
 	connect_node(from_node, from_port, to_node, to_port)
-	self.connection_created.emit(from, from_port, to, to_port)
+	self.connection_created.emit(Connection.new(from,from_port,to,to_port))
  
 
 func _on_disconnection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
 	disconnect_node(from_node, from_port, to_node, to_port)
 	var from := get_node(str(from_node)) as BaseNode
 	var to := get_node(str(to_node)) as BaseNode
-	self.connection_destroyed.emit(from, from_port, to, to_port)
+	self.connection_destroyed.emit(Connection.new(from,from_port,to,to_port))
 
 
 # Get all audio nodes

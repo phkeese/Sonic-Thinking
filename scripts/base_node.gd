@@ -3,9 +3,9 @@ class_name BaseNode
 
 
 # Emitted when a connection to this node is made
-signal connection_created(from: BaseNode, from_port: int, to: BaseNode, to_port: int)
+signal connection_created(connection: Connection)
 # Emitted when a connection to this node is destroyed
-signal connection_destroyed(from: BaseNode, from_port: int, to: BaseNode, to_port: int)
+signal connection_destroyed(connection: Connection)
 
 
 var _input_buffers : Dictionary
@@ -91,10 +91,10 @@ func pad_with(data: PackedVector2Array, value: Vector2, count: int) -> PackedVec
 	return data
 
 
-func _on_parent_connection_created(from: BaseNode, from_port: int, to: BaseNode, to_port: int) -> void:
-	if self == to or self == from:
-		self.connection_created.emit(from,from_port,to,to_port)
+func _on_parent_connection_created(connection: Connection) -> void:
+	if connection.is_subject(self):
+		self.connection_created.emit(connection)
 
-func _on_parent_connection_destroyed(from: BaseNode, from_port: int, to: BaseNode, to_port: int) -> void:
-	if self == to or self == from:
-		self.connection_destroyed.emit(from,from_port,to,to_port)
+func _on_parent_connection_destroyed(connection: Connection) -> void:
+	if connection.is_subject(self):
+		self.connection_destroyed.emit(connection)

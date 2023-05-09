@@ -45,5 +45,6 @@ alignment = 2
 pattern = "\\d*\\.\\d*"
 
 [node name="Debug" type="TextureRect" parent="." index="2"]
+modulate = Color(0.282353, 1, 0, 1)
 layout_mode = 2
 texture = ExtResource("3_ekbvu")
