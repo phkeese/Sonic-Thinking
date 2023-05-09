@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bker7eafiot0k"]
+[gd_scene load_steps=8 format=3 uid="uid://bker7eafiot0k"]
 
 [ext_resource type="Script" path="res://scripts/add_node_menu.gd" id="1_n1jwh"]
 [ext_resource type="PackedScene" uid="uid://dgjpo3jju81r2" path="res://scenes/nodes/debug_led.tscn" id="2_audsq"]
@@ -6,11 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://bvjinb27uweq7" path="res://scenes/nodes/blip_node.tscn" id="4_jltir"]
 [ext_resource type="PackedScene" uid="uid://chgsa5t53rrfq" path="res://scenes/nodes/test_node.tscn" id="5_stx26"]
 [ext_resource type="PackedScene" uid="uid://crgvpxww8ldc8" path="res://scenes/nodes/lfo_node.tscn" id="6_wiyop"]
+[ext_resource type="PackedScene" uid="uid://d0ux1op6evo6j" path="res://scenes/nodes/constant_node.tscn" id="7_hvkum"]
 
 [node name="AddNodeMenu" type="PopupMenu"]
 title = "Add Node"
 visible = true
 script = ExtResource("1_n1jwh")
-node_scenes = Array[PackedScene]([ExtResource("2_audsq"), ExtResource("3_cr4xo"), ExtResource("4_jltir"), ExtResource("5_stx26"), ExtResource("6_wiyop")])
+node_scenes = Array[PackedScene]([ExtResource("2_audsq"), ExtResource("3_cr4xo"), ExtResource("4_jltir"), ExtResource("5_stx26"), ExtResource("6_wiyop"), ExtResource("7_hvkum")])
 
 [connection signal="index_pressed" from="." to="." method="_on_index_pressed"]
