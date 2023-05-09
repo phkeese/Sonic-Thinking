@@ -22,7 +22,7 @@ func run(sample_count: int) -> void:
 	var time_per_sample := 1.0 / SynthGlobals.sample_rate
 	for i in sample_count:
 		var time := (SynthGlobals.sample_index + i) * time_per_sample
-		var x := fmod(time, 1.0) * TAU
+		var x := fmod(time * _frequency, 1.0) * TAU
 		var y := sin(x)
 		output[i] = Vector2.ONE * y
 	push_output(0, output)
