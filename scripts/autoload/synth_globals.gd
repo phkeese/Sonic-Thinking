@@ -1,6 +1,10 @@
 extends Node
 
 
+signal started_playing()
+signal stopped_playing()
+
+
 var sample_rate := 48_000 :
 	get:
 		return sample_rate
@@ -21,10 +25,12 @@ var sample_index := 0 :
 
 func play() -> void:
 	is_playing = true
+	self.started_playing.emit()
 
 
 func pause() -> void:
 	is_playing = false
+	self.stopped_playing.emit()
 
 
 func rewind() -> void:

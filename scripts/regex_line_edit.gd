@@ -2,6 +2,9 @@
 extends LineEdit
 
 
+signal valid_text_submitted(value: String)
+
+
 @export var pattern := ".*" : set = _set_pattern
 var _regex : RegEx = RegEx.create_from_string(".*")
 
@@ -18,9 +21,13 @@ func _set_pattern(value: String) -> void:
 
 
 func _on_text_submitted(value: String) -> void:
-	pass
+	if _matches(value):
+		self.valid_text_submitted.emit(value)
 
 
 func _matches(value: String) -> bool:
 	var re_match := _regex.search(value)
-	return re_match and re_match.get_string() == value
+	if not re_match:
+		return false
+	var string := re_match.get_string()
+	return string == value

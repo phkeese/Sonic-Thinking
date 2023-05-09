@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cex4idm5n1ab5"]
+[gd_scene load_steps=9 format=3 uid="uid://cex4idm5n1ab5"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_13if0"]
 [ext_resource type="Texture2D" uid="uid://hqyydema5gaf" path="res://assets/ui/star.png" id="1_ipxyc"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d1ookex7f4hyx" path="res://assets/ui/arrowRight.png" id="4_2qwsg"]
 [ext_resource type="Script" path="res://scripts/PlayPause.gd" id="5_nrt6c"]
 [ext_resource type="PackedScene" uid="uid://duombub3mfuvx" path="res://scenes/workspace.tscn" id="6_ehej2"]
+[ext_resource type="PackedScene" uid="uid://c8umkhi1kqube" path="res://scenes/helpers/regex_line_edit.tscn" id="7_ndhr6"]
 
 [node name="Main" type="Panel"]
 anchors_preset = 15
@@ -60,8 +61,21 @@ text = "Play"
 icon = ExtResource("4_2qwsg")
 script = ExtResource("5_nrt6c")
 
+[node name="Label" type="Label" parent="VBoxContainer/PlaybackControls"]
+layout_mode = 2
+text = "Sample Rate:"
+
+[node name="SampleRate" parent="VBoxContainer/PlaybackControls" instance=ExtResource("7_ndhr6")]
+layout_mode = 2
+text = "1000"
+placeholder_text = "Hz"
+alignment = 2
+pattern = "\\d+"
+
 [node name="Workspace" parent="VBoxContainer" instance=ExtResource("6_ehej2")]
 layout_mode = 2
+scroll_offset = Vector2(0, -97)
 
 [connection signal="toggled" from="VBoxContainer/PlaybackControls/PlayPause" to="." method="_on_play_pause_toggled"]
 [connection signal="toggled" from="VBoxContainer/PlaybackControls/PlayPause" to="VBoxContainer/PlaybackControls/PlayPause" method="_on_toggled"]
+[connection signal="valid_text_submitted" from="VBoxContainer/PlaybackControls/SampleRate" to="." method="_on_sample_rate_valid_text_submitted"]
