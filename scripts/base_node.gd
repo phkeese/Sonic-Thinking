@@ -84,10 +84,15 @@ func _set_output_buffer(slot: int, data: PackedVector2Array):
 
 func pad_with(data: PackedVector2Array, value: Vector2, count: int) -> PackedVector2Array:
 	var n := max(count - data.size(), 0) as int
-	var padding := PackedVector2Array()
-	padding.resize(n)
-	padding.fill(value)
+	var padding := filled_with(Vector2.ZERO, n)
 	data.append_array(padding)
+	return data
+
+
+func filled_with(value: Vector2, count: int) -> PackedVector2Array:
+	var data := PackedVector2Array()
+	data.resize(count)
+	data.fill(value)
 	return data
 
 

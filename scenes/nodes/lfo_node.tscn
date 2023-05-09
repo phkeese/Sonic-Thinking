@@ -1,50 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://crgvpxww8ldc8"]
+[gd_scene load_steps=4 format=3 uid="uid://crgvpxww8ldc8"]
 
 [ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/nodes/base_node.tscn" id="1_srjet"]
 [ext_resource type="PackedScene" uid="uid://c8umkhi1kqube" path="res://scenes/helpers/regex_line_edit.tscn" id="2_ci4mq"]
 [ext_resource type="Script" path="res://scripts/lfo_node.gd" id="2_q8vqx"]
-[ext_resource type="Texture2D" uid="uid://co0e0761pjn4e" path="res://assets/ui/grey_button01.png" id="3_ekbvu"]
 
 [node name="LFONode" instance=ExtResource("1_srjet")]
 offset_right = 215.0
 offset_bottom = 85.0
 title = "Low Frequency Oscillator"
-slot/0/left_enabled = false
+slot/0/left_enabled = true
 slot/0/left_type = 0
-slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_color = Color(1, 0, 0, 1)
 slot/0/left_icon = null
-slot/0/right_enabled = true
+slot/0/right_enabled = false
 slot/0/right_type = 0
 slot/0/right_color = Color(1, 0, 0, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
-slot/1/left_enabled = true
+slot/1/left_enabled = false
 slot/1/left_type = 0
 slot/1/left_color = Color(1, 0, 0, 1)
 slot/1/left_icon = null
-slot/1/right_enabled = false
+slot/1/right_enabled = true
 slot/1/right_type = 0
-slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_color = Color(1, 0, 0, 1)
 slot/1/right_icon = null
 slot/1/draw_stylebox = true
 script = ExtResource("2_q8vqx")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." index="1"]
+[node name="FrequencyInput" type="HBoxContainer" parent="." index="1"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer" index="0"]
+[node name="Frequency" parent="FrequencyInput" index="0" instance=ExtResource("2_ci4mq")]
+layout_mode = 2
+size_flags_vertical = 4
+text = "1"
+placeholder_text = "Hz"
+pattern = "\\d*\\.\\d*"
+
+[node name="Label" type="Label" parent="FrequencyInput" index="1"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Frequency"
+horizontal_alignment = 2
 
-[node name="Frequency" parent="HBoxContainer" index="1" instance=ExtResource("2_ci4mq")]
+[node name="Output" type="Label" parent="." index="2"]
 layout_mode = 2
-size_flags_vertical = 4
-placeholder_text = "Hz"
-alignment = 2
-pattern = "\\d*\\.\\d*"
-
-[node name="Debug" type="TextureRect" parent="." index="2"]
-modulate = Color(0.282353, 1, 0, 1)
-layout_mode = 2
-texture = ExtResource("3_ekbvu")
+text = "Output (sine)"
