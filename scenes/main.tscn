@@ -67,7 +67,7 @@ text = "Sample Rate:"
 
 [node name="SampleRate" parent="VBoxContainer/PlaybackControls" instance=ExtResource("7_ndhr6")]
 layout_mode = 2
-text = "1000"
+text = "100"
 placeholder_text = "Hz"
 alignment = 2
 pattern = "\\d+"

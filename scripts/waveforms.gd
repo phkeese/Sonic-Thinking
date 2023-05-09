@@ -18,6 +18,6 @@ func _draw() -> void:
 		var here := -data[i] * y_scale + Vector2.ONE * y_scale
 		var last_x := (i - 1) * x_step
 		var x := i * x_step
-		draw_line(Vector2(last_x,last.x),Vector2(x,here.x), Color.RED)
-		draw_line(Vector2(last_x,last.y),Vector2(x,here.y), Color.GREEN)
+		draw_line(Vector2(last_x,last.x),Vector2(x,here.x), Color.RED, -1, true)
+		draw_line(Vector2(last_x,last.y),Vector2(x,here.y), Color.GREEN, -1, true)
 		last = here

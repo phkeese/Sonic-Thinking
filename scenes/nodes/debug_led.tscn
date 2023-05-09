@@ -1,11 +1,11 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=9 format=3 uid="uid://b8v4qgchuwcpo"]
 
 [ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/nodes/base_node.tscn" id="1_lvp4g"]
 [ext_resource type="Script" path="res://scripts/debug_led.gd" id="2_6n778"]
 [ext_resource type="Texture2D" uid="uid://gedal3tspk3a" path="res://assets/ui/grey_tickWhite.png" id="2_j60vh"]
 [ext_resource type="Script" path="res://scripts/LED.gd" id="3_1417x"]
 [ext_resource type="AudioStream" uid="uid://dbroxmwsmdls3" path="res://assets/sound/click2.mp3" id="5_gp2q3"]
-[ext_resource type="Script" path="res://scripts/waveforms.gd" id="6_cd30s"]
+[ext_resource type="Script" path="res://scripts/waveforms.gd" id="6_67fq2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1e4fr"]
 bg_color = Color(1, 0, 0, 1)
@@ -72,5 +72,5 @@ show_percentage = false
 [node name="Waveforms" type="Panel" parent="." index="4"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
-script = ExtResource("6_cd30s")
+script = ExtResource("6_67fq2")
 data = PackedVector2Array(0, 0, 1, 1, 0, 0, -1, -1, 0, 0)
