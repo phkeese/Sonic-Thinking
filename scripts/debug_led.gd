@@ -22,3 +22,4 @@ func run(sample_count: int):
 	
 	$Levels/Left.value = avg.x
 	$Levels/Right.value = avg.y
+	$Waveforms.data = _samples
