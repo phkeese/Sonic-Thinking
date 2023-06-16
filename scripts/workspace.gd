@@ -16,6 +16,7 @@ func _on_connection_request(from_node: StringName, from_port: int, to_node: Stri
 		
 	connect_node(from_node, from_port, to_node, to_port)
 	self.connection_created.emit(Connection.new(from,from_port,to,to_port))
+	_rebuild_compute_order()
  
 
 func _on_disconnection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
@@ -23,6 +24,7 @@ func _on_disconnection_request(from_node: StringName, from_port: int, to_node: S
 	var from := get_node(str(from_node)) as SynthNode
 	var to := get_node(str(to_node)) as SynthNode
 	self.connection_destroyed.emit(Connection.new(from,from_port,to,to_port))
+	_rebuild_compute_order()
 
 
 func _is_port_taken(to: SynthNode, port: int) -> bool:
@@ -53,6 +55,23 @@ func _get_nice_connections() -> Array[Connection]:
 	return connections
 
 
+# Get order of computation for node graph
+func dfs(node: SynthNode, order: Array[SynthNode]) -> void:
+	if node in order:
+		return
+	print("descend into %s" % node.name)
+	order.append(node)
+	var input_nodes := _get_nice_connections().filter(
+		func(c: Connection) -> bool:
+			return c.to == node
+	).map(
+		func(c: Connection) -> SynthNode:
+			return c.to
+	)
+	for input_node in input_nodes:
+		dfs(input_node, order)
+
+
 func _on_popup_request(position: Vector2) -> void:
 	$AddMenu.position = position
 	$AddMenu.show()
@@ -60,3 +79,12 @@ func _on_popup_request(position: Vector2) -> void:
 
 func _on_add_menu_add_node(node: SynthNode) -> void:
 	add_child(node)
+	_rebuild_compute_order()
+
+
+func _rebuild_compute_order() -> void:
+	var order : Array[SynthNode] = []
+	var output_nodes := get_tree().get_nodes_in_group("output_node")
+	for node in output_nodes:
+		dfs(node, order)
+	print(order)

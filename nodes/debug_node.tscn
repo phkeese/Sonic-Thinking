@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/helpers/waveforms.gd" id="1_sb3km"]
 [ext_resource type="Script" path="res://scripts/synth_nodes/debug_node.gd" id="1_w226p"]
 
-[node name="DebugNode" type="GraphNode"]
+[node name="DebugNode" type="GraphNode" groups=["output_node"]]
 offset_right = 241.0
 offset_bottom = 80.0
 title = "Debug Node"
