@@ -21,3 +21,9 @@ func _draw() -> void:
 		draw_line(Vector2(last_x,last.x),Vector2(x,here.x), Color.RED, -1, true)
 		draw_line(Vector2(last_x,last.y),Vector2(x,here.y), Color.GREEN, -1, true)
 		last = here
+
+
+func push(value: Vector2) -> void:
+	data.append(value)
+	data.remove_at(0)
+	queue_redraw()

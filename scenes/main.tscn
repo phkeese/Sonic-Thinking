@@ -74,6 +74,7 @@ pattern = "\\d+"
 
 [node name="Workspace" parent="VBoxContainer" instance=ExtResource("6_ehej2")]
 layout_mode = 2
+scroll_offset = Vector2(0, -97)
 
 [connection signal="toggled" from="VBoxContainer/PlaybackControls/PlayPause" to="." method="_on_play_pause_toggled"]
 [connection signal="toggled" from="VBoxContainer/PlaybackControls/PlayPause" to="VBoxContainer/PlaybackControls/PlayPause" method="_on_toggled"]

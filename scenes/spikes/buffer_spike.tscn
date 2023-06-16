@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://bub4fs0mkr7tx"]
+
+[ext_resource type="Script" path="res://scenes/spikes/buffer_spike.gd" id="1_qf5vl"]
+[ext_resource type="Script" path="res://scripts/waveforms.gd" id="2_4jxh8"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_37y68"]
+mix_rate = 48000.0
+buffer_length = 0.1
+
+[node name="BufferSpike" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qf5vl")
+
+[node name="Player" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamGenerator_37y68")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Play" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="Pause" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Pause"
+
+[node name="Frequency" type="SpinBox" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 20000.0
+step = 0.1
+value = 440.0
+suffix = "hz"
+
+[node name="Display" type="Panel" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_4jxh8")
+data = PackedVector2Array(0, 0, 1, 1, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Pause" to="." method="_on_pause_pressed"]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/Frequency" to="." method="_on_frequency_value_changed"]

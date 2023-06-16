@@ -20,8 +20,6 @@ config/icon="res://icon.svg"
 
 SynthGlobals="*res://scripts/autoload/synth_globals.gd"
 
-
-
 [gui]
 
 theme/custom="res://resources/dark_theme.tres"

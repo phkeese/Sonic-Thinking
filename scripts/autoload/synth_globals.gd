@@ -6,16 +6,12 @@ signal stopped_playing()
 
 
 var sample_rate := 48_000 :
-	get:
-		return sample_rate
 	set(value):
-		if not is_playing:
+		if not is_playing():
 			sample_rate = value
 
 
-var is_playing := false :
-	get:
-		return is_playing
+var _is_playing := false
 
 
 var sample_index := 0 :
@@ -23,13 +19,23 @@ var sample_index := 0 :
 		return sample_index
 
 
+var buffer_size := 1024 :
+	set(value):
+		if not is_playing():
+			buffer_size = value
+
+
+func is_playing() -> bool:
+	return _is_playing
+
+
 func play() -> void:
-	is_playing = true
+	_is_playing = true
 	self.started_playing.emit()
 
 
 func pause() -> void:
-	is_playing = false
+	_is_playing = false
 	self.stopped_playing.emit()
 
 
