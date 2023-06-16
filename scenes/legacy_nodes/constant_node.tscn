@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d0ux1op6evo6j"]
 
-[ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/nodes/base_node.tscn" id="1_j5ec7"]
-[ext_resource type="Script" path="res://scripts/constant_node.gd" id="2_4bglk"]
+[ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/legacy_nodes/base_node.tscn" id="1_j5ec7"]
+[ext_resource type="Script" path="res://scripts/legacy/constant_node.gd" id="2_4bglk"]
 
 [node name="ConstantNode" instance=ExtResource("1_j5ec7")]
 title = "Constant Node"

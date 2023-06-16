@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://fsbm5b04m7dg"]
 
-[ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/nodes/base_node.tscn" id="1_5c1b6"]
-[ext_resource type="Script" path="res://scripts/clock_node.gd" id="1_8gijc"]
+[ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/legacy_nodes/base_node.tscn" id="1_5c1b6"]
+[ext_resource type="Script" path="res://scripts/legacy/clock_node.gd" id="1_8gijc"]
 [ext_resource type="PackedScene" uid="uid://ckkldypaqa4fy" path="res://scenes/helpers/output_edit.tscn" id="1_whk1n"]
 [ext_resource type="Texture2D" uid="uid://gedal3tspk3a" path="res://assets/ui/grey_tickWhite.png" id="3_kuwgr"]
 

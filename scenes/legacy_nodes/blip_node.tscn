@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bvjinb27uweq7"]
 
-[ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/nodes/base_node.tscn" id="1_6o5j3"]
-[ext_resource type="Script" path="res://scripts/blip_node.gd" id="1_db3rj"]
+[ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/legacy_nodes/base_node.tscn" id="1_6o5j3"]
+[ext_resource type="Script" path="res://scripts/legacy/blip_node.gd" id="1_db3rj"]
 [ext_resource type="AudioStream" uid="uid://dbroxmwsmdls3" path="res://assets/sound/click2.mp3" id="2_y1gpr"]
 
 [node name="BlipNode" instance=ExtResource("1_6o5j3")]

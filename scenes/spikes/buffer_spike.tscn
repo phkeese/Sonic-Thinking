@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bub4fs0mkr7tx"]
 
 [ext_resource type="Script" path="res://scenes/spikes/buffer_spike.gd" id="1_qf5vl"]
-[ext_resource type="Script" path="res://scripts/waveforms.gd" id="2_4jxh8"]
+[ext_resource type="Script" path="res://scripts/helpers/waveforms.gd" id="2_3xtuf"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_37y68"]
 mix_rate = 48000.0
@@ -45,7 +45,7 @@ suffix = "hz"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("2_4jxh8")
+script = ExtResource("2_3xtuf")
 data = PackedVector2Array(0, 0, 1, 1, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]

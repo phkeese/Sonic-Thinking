@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://chgsa5t53rrfq"]
 
-[ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/nodes/base_node.tscn" id="1_aig3m"]
-[ext_resource type="Script" path="res://scripts/test_node.gd" id="2_bncgw"]
+[ext_resource type="PackedScene" uid="uid://d2ynxndw7v6fk" path="res://scenes/legacy_nodes/base_node.tscn" id="1_aig3m"]
+[ext_resource type="Script" path="res://scripts/legacy/test_node.gd" id="2_bncgw"]
 
 [node name="TestNode" instance=ExtResource("1_aig3m")]
 title = "Test Node"
