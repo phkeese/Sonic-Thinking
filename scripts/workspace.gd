@@ -17,11 +17,11 @@ enum SignalTypes {
 
 
 func _process(delta: float) -> void:
-	var sample_count := SynthGlobals.sample_rate # Debug value, derive from audio player later
+	var sample_count := SynthGlobals.sample_rate * delta # Debug value, derive from audio player later
 	if SynthGlobals.is_playing:
 		_update_nodes(sample_count)
 		SynthGlobals.advance(sample_count)
-		print("updated nodes with %s samples" % sample_count)
+
 
 
 func _update_nodes(sample_count: int) -> void:

@@ -20,10 +20,7 @@ config/icon="res://icon.svg"
 
 SynthGlobals="*res://scripts/autoload/synth_globals.gd"
 
-[display]
 
-window/size/viewport_width=2000
-window/size/viewport_height=1500
 
 [gui]
 
@@ -31,5 +28,4 @@ theme/custom="res://resources/dark_theme.tres"
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
