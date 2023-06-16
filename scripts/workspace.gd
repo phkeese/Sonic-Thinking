@@ -8,50 +8,6 @@ signal connection_created(connection: Connection)
 signal connection_destroyed(connection: Connection)
 
 
-enum SignalTypes {
-	Gate = 0,
-	Frequency = 1,
-	Tone = 2,
-	Waveform = 3,
-}
-
-
-func _process(delta: float) -> void:
-	var sample_count := SynthGlobals.sample_rate * delta # Debug value, derive from audio player later
-	if SynthGlobals.is_playing:
-		_update_nodes(sample_count)
-		SynthGlobals.advance(sample_count)
-
-
-
-func _update_nodes(sample_count: int) -> void:
-	# BaeNode -> Array[PackedVector2]
-	var output_cache := Dictionary()
-	var order := _get_compute_order()
-	for node in order:
-		# Set all inputs
-		var connections : Array[Connection] = []
-		for c in _get_nice_connections():
-			if c.to == node:
-				connections.append(c)
-				
-		for conn in connections:
-			var from := conn.from
-			var from_port := conn.from_port
-			var to_port := conn.to_port
-			var data := output_cache[from][from_port] as PackedVector2Array
-			node.push_input(to_port, data)
-			
-		# Compute outputs
-		node.run(sample_count)
-		
-		# Cache outputs
-		var output : Array[PackedVector2Array] = []
-		for slot in node.get_connection_output_count():
-			output.append(node.consume_output(slot, sample_count))
-		output_cache[node] = output
-
-
 func _on_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
 	var from := get_node(str(from_node)) as BaseNode
 	var to := get_node(str(to_node)) as BaseNode
@@ -67,35 +23,6 @@ func _on_disconnection_request(from_node: StringName, from_port: int, to_node: S
 	var from := get_node(str(from_node)) as BaseNode
 	var to := get_node(str(to_node)) as BaseNode
 	self.connection_destroyed.emit(Connection.new(from,from_port,to,to_port))
-
-
-# Get all audio nodes
-func _get_audio_nodes() -> Array[BaseNode]:
-	var nodes : Array[BaseNode] = []
-	for node in get_tree().get_nodes_in_group("audio"):
-		nodes.append(node)
-	return nodes
-
-
-# Recompute the global order of computation for all nodes
-func _get_compute_order() -> Array[BaseNode]:
-	var order : Array[BaseNode] = []
-	for node in _get_audio_nodes():
-		_build_tree(node, order)
-	return order
-
-
-# Compute order of execution for a specific node
-func _build_tree(to: BaseNode, order: Array[BaseNode] = []) -> Array[BaseNode]:
-	# { from_port: 0, from: "GraphNode name 0", to_port: 1, to: "GraphNode name 1" }.
-	var input_nodes := get_connection_list()\
-		.filter(func(c): return str(c.to) == to.name)\
-		.map(func(c): return get_node(str(c.from)))\
-		.filter(func(node): return node not in order)
-	for input in input_nodes:
-		_build_tree(input as BaseNode, order)
-	order.append(to)
-	return order
 
 
 func _is_port_taken(to: BaseNode, port: int) -> bool:

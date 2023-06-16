@@ -46,3 +46,11 @@ func rewind() -> void:
 
 func advance(sample_count: int) -> void:
 	sample_index += sample_count
+
+
+enum SignalTypes {
+	Gate = 0,
+	Frequency = 1,
+	Tone = 2,
+	Waveform = 3,
+}

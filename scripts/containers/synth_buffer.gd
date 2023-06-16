@@ -10,6 +10,12 @@ extends RefCounted
 		return data
 
 
+static func with_value(initial: Vector2) -> SynthBuffer:
+	var buffer := SynthBuffer.new()
+	buffer.data.fill(initial)
+	return buffer
+
+
 func _init():
 	data.resize(SynthGlobals.buffer_size)
 
