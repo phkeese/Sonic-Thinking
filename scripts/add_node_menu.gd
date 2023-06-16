@@ -1,6 +1,6 @@
 extends PopupMenu
 
-signal add_node(node: BaseNode)
+signal add_node(node: SynthNode)
 
 
 @export var node_scenes : Array[PackedScene]
@@ -8,13 +8,13 @@ signal add_node(node: BaseNode)
 
 func _ready() -> void:
 	for scene in node_scenes:
-		var instance := scene.instantiate() as BaseNode
+		var instance := scene.instantiate() as SynthNode
 		add_item(instance.title)
 		instance.queue_free()
 
 
 func _on_index_pressed(index: int) -> void:
 	var scene := node_scenes[index]
-	var instance := scene.instantiate() as BaseNode
+	var instance := scene.instantiate() as SynthNode
 	instance.position_offset = position
 	add_node.emit(instance)
