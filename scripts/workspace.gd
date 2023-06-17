@@ -18,15 +18,14 @@ func _process(_delta):
 	var needed_buffers := 1
 	for i in needed_buffers:
 		_step()
+	
+	for node in _compute_order:
+		node.finish()
 
 
 func _step():
 	for node in _compute_order:
 		node.compute(1)
-	
-	for node in _compute_order:
-		node.finish()
-
 
 
 func _on_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
