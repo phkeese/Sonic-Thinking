@@ -1,11 +1,12 @@
+@tool
 extends Label
 
 
-@export var data : Dictionary
+@export var trackers : Array[String]
 
 
 func _process(delta):
-	var new_text := ""
-	for key in data.keys():
-		new_text += "%s: %s\n" % [key, data[key]]
-	text = new_text
+	var string := ""
+	for key in trackers:
+		string += "%s: %s\n" % [key, get_parent().get(key)]
+	text = string

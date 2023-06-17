@@ -67,14 +67,21 @@ text = "Sample Rate:"
 
 [node name="SampleRate" parent="VBoxContainer/PlaybackControls" instance=ExtResource("7_ndhr6")]
 layout_mode = 2
-text = "100"
+text = "48000"
 placeholder_text = "Hz"
 alignment = 2
 pattern = "\\d+"
 
+[node name="Step" type="Button" parent="VBoxContainer/PlaybackControls"]
+layout_mode = 2
+text = "Single
+Step"
+
 [node name="Workspace" parent="VBoxContainer" instance=ExtResource("6_ehej2")]
 layout_mode = 2
+scroll_offset = Vector2(0, -97)
 
 [connection signal="toggled" from="VBoxContainer/PlaybackControls/PlayPause" to="." method="_on_play_pause_toggled"]
 [connection signal="toggled" from="VBoxContainer/PlaybackControls/PlayPause" to="VBoxContainer/PlaybackControls/PlayPause" method="_on_toggled"]
 [connection signal="valid_text_submitted" from="VBoxContainer/PlaybackControls/SampleRate" to="." method="_on_sample_rate_valid_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/PlaybackControls/Step" to="VBoxContainer/Workspace" method="_step"]

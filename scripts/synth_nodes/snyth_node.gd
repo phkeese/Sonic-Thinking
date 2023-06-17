@@ -23,8 +23,9 @@ func _next() -> SynthBuffer:
 
 
 # Clear output queues before next computation
-func dequeue(buffer_count: int) -> void:
-	output.dequeue(buffer_count)
+func finish():
+	output.clear()
+	current_buffer_index = 0
 
 
 # Helper to get inputs.

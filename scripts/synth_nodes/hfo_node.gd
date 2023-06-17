@@ -15,6 +15,7 @@ const EN_INPUT = 2
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	inputs.resize(3)
+	output = BufferQueue.new()
 
 
 func _next() -> SynthBuffer:
@@ -23,6 +24,7 @@ func _next() -> SynthBuffer:
 	var buffer := frequency.indexed_map(
 		func(i: int, frq: Vector2) -> Vector2:
 			var x := phi + dx * i;
+			phi += dx
 			var y := sin(TAU * frq.x * x)
 			return Vector2.ONE * y
 	)

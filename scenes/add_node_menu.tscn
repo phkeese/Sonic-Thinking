@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bker7eafiot0k"]
+[gd_scene load_steps=5 format=3 uid="uid://bker7eafiot0k"]
 
 [ext_resource type="Script" path="res://scripts/add_node_menu.gd" id="1_n1jwh"]
 [ext_resource type="PackedScene" uid="uid://d0lv34j7qbmhq" path="res://assets/hfo_node.tscn" id="2_l3ho2"]
 [ext_resource type="PackedScene" uid="uid://dhnnqrkytjec7" path="res://nodes/debug_node.tscn" id="3_ltk3y"]
+[ext_resource type="PackedScene" uid="uid://djen4jsrr0vd0" path="res://nodes/output_node.tscn" id="4_hclko"]
 
 [node name="AddNodeMenu" type="PopupMenu"]
 title = "Add Node"
 visible = true
 script = ExtResource("1_n1jwh")
-node_scenes = Array[PackedScene]([ExtResource("2_l3ho2"), ExtResource("3_ltk3y")])
+node_scenes = Array[PackedScene]([ExtResource("2_l3ho2"), ExtResource("3_ltk3y"), ExtResource("4_hclko")])
 
 [connection signal="index_pressed" from="." to="." method="_on_index_pressed"]

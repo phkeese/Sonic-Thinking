@@ -17,7 +17,15 @@ script = ExtResource("1_t2f0b")
 [node name="AddMenu" parent="." instance=ExtResource("6_n5equ")]
 visible = false
 
+[node name="DebugMenu" type="PopupMenu" parent="."]
+item_count = 2
+item_0/text = "Print Input Nodes"
+item_0/id = 0
+item_1/text = "Rebuild Order"
+item_1/id = 1
+
 [connection signal="connection_request" from="." to="." method="_on_connection_request"]
 [connection signal="disconnection_request" from="." to="." method="_on_disconnection_request"]
 [connection signal="popup_request" from="." to="." method="_on_popup_request"]
 [connection signal="add_node" from="AddMenu" to="." method="_on_add_menu_add_node"]
+[connection signal="id_pressed" from="DebugMenu" to="." method="_on_debug_menu_id_pressed"]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/synth_nodes/hfo_node.gd" id="1_io0r2"]
 [ext_resource type="Script" path="res://scripts/helpers/debug_label.gd" id="2_fgbc1"]
 
-[node name="HFO" type="GraphNode"]
+[node name="HFO" type="GraphNode" groups=["synth_node"]]
 offset_right = 328.0
 offset_bottom = 118.0
 title = "HFO"
@@ -84,14 +84,14 @@ popup/item_0/text = "Sine Wave"
 popup/item_0/id = 0
 
 [node name="Enabled" type="CheckBox" parent="."]
+visible = false
 layout_mode = 2
 button_pressed = true
 text = "Enable"
 
 [node name="DebugLabel" type="Label" parent="."]
 layout_mode = 2
-text = "< add data >"
+text = "phi: 0
+"
 script = ExtResource("2_fgbc1")
-data = {
-"Test": 0.0
-}
+trackers = Array[String](["phi"])
