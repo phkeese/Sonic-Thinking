@@ -89,7 +89,6 @@ func dfs(node: SynthNode, order: Array[SynthNode]) -> Array[SynthNode]:
 	if node in order:
 		return order
 	print("descend into %s" % node.name)
-	order.append(node)
 	var input_nodes := _get_nice_connections().filter(
 		func(c: Connection) -> bool:
 			return c.to == node
@@ -99,6 +98,7 @@ func dfs(node: SynthNode, order: Array[SynthNode]) -> Array[SynthNode]:
 	)
 	for input_node in input_nodes:
 		dfs(input_node, order)
+	order.append(node)
 	return order
 
 
@@ -122,7 +122,6 @@ func _rebuild_compute_order() -> void:
 		dfs(node, order)
 	for node in get_tree().get_nodes_in_group("synth_node"):
 		dfs(node, order)
-	order.reverse()
 	_compute_order = order
 	print(order)
 
