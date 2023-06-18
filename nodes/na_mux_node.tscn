@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://n535ymihaxdu"]
+
+[ext_resource type="Script" path="res://scripts/nodes/NAMuxNode.cs" id="1_if8xm"]
+
+[node name="NAMuxNode" type="GraphNode"]
+offset_right = 36.0
+offset_bottom = 54.0
+title = "Mux"
+slot/0/left_enabled = true
+slot/0/left_type = 1
+slot/0/left_color = Color(1, 0, 0, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 1
+slot/0/right_color = Color(1, 0, 0, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = true
+slot/1/left_type = 1
+slot/1/left_color = Color(1, 0, 0, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("1_if8xm")
+
+[node name="A" type="CheckBox" parent="."]
+layout_mode = 2
+button_pressed = true
+text = "Make Active"
+
+[node name="B" type="CheckBox" parent="."]
+layout_mode = 2
+text = "Make Active"

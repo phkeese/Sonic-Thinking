@@ -52,3 +52,5 @@ offset_right = 696.0
 offset_bottom = 407.0
 mouse_filter = 1
 position_offset = Vector2(458, 304)
+
+[node name="NodeMenu" type="PopupMenu" parent="."]
