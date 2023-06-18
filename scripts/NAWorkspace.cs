@@ -17,7 +17,7 @@ public partial class NAWorkspace : GraphEdit
 	{
 		NANode from = GetNode<NANode>(fromName.ToString());
 		NANode to = GetNode<NANode>(toName.ToString());
-
+		
 		if (IsNodeConnected(fromName, (int)fromPort, toName, (int)toPort))
 		{
 			to.DisconnectInput(from, (int)fromPort, (int)toPort);
@@ -26,8 +26,22 @@ public partial class NAWorkspace : GraphEdit
 		DisconnectNode(fromName, (int)fromPort, toName, (int)toPort);
 	}
 
+	private bool IsInputTaken(StringName toName, long toPort)
+	{
+		foreach (var connection in GetConnectionList())
+		{
+			var to = connection["to"].AsStringName();
+			var port = connection["to_port"].AsInt32();
+			if (to == toName && port == toPort) return true;
+		}
+
+		return false;
+	}
+
 	private void OnConnectionRequest(StringName fromName, long fromPort, StringName toName, long toPort)
 	{
+		if (IsInputTaken(toName, toPort)) return;
+		
 		NANode from = GetNode<NANode>(fromName.ToString());
 		NANode to = GetNode<NANode>(toName.ToString());
 
