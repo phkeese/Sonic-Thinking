@@ -13,14 +13,17 @@ public partial class NASignalGeneratorNode : NANode
 		_frequency = GetNode<SpinBox>("Frequency/SpinBox");
 		_gainSlider = GetNode<HSlider>("GainSlider");
 		_typeButton = GetNode<OptionButton>("WaveForm/OptionButton");
+		_invertRight = GetNode<CheckBox>("InvertRight");
 
 		_frequency.ValueChanged += OnFrequencyChanged;
 		_gainSlider.ValueChanged += OnGainChanged;
-		_typeButton.ItemSelected += index => { _generator.Type = ResolveWaveType((int)index); }; 
+		_typeButton.ItemSelected += index => { _generator.Type = ResolveWaveType((int)index); };
+		_invertRight.Toggled += pressed => _generator.PhaseReverse[1] = pressed; 
 		
 		_generator.Gain = _gainSlider.Value;
 		_generator.Frequency = _frequency.Value;
 		_generator.Type = ResolveWaveType(_typeButton.Selected);
+		_generator.PhaseReverse[1] = _invertRight.ButtonPressed;
 	}
 
 	private SignalGeneratorType ResolveWaveType(int selected)
@@ -56,4 +59,5 @@ public partial class NASignalGeneratorNode : NANode
 	private SpinBox _frequency;
 	private HSlider _gainSlider;
 	private OptionButton _typeButton;
+	private CheckBox _invertRight;
 }

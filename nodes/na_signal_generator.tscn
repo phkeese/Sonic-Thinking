@@ -42,6 +42,15 @@ slot/3/right_type = 0
 slot/3/right_color = Color(1, 1, 1, 1)
 slot/3/right_icon = null
 slot/3/draw_stylebox = true
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
 script = ExtResource("1_bmuw5")
 
 [node name="Frequency" type="HBoxContainer" parent="."]
@@ -99,3 +108,7 @@ max_value = 1.0
 step = 0.01
 value = 0.2
 exp_edit = true
+
+[node name="InvertRight" type="CheckBox" parent="."]
+layout_mode = 2
+text = "Invert Right"
