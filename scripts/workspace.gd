@@ -2,6 +2,9 @@ extends GraphEdit
 class_name Workspace
 
 
+const NANode := preload("res://scripts/nodes/NANode.cs")
+
+
 # Emitted when a connection is made, not just requested
 signal connection_created(connection: Connection)
 # Emitted when a connection is destroyed, not just requested
@@ -13,6 +16,7 @@ var _compute_order : Array[SynthNode]
 
 
 func _process(_delta):
+	
 	if not SynthGlobals.is_playing():
 		return
 	var needed_buffers := SynthGlobals.sample_rate / 60
