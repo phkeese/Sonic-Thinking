@@ -40,7 +40,7 @@ public partial class NAWorkspace : GraphEdit
 
 	private void OnConnectionRequest(StringName fromName, long fromPort, StringName toName, long toPort)
 	{
-		if (IsInputTaken(toName, toPort)) return;
+		if (IsInputTaken(toName, toPort)) ForceDisconnect(toName, toPort);
 		
 		NANode from = GetNode<NANode>(fromName.ToString());
 		NANode to = GetNode<NANode>(toName.ToString());
@@ -51,6 +51,21 @@ public partial class NAWorkspace : GraphEdit
 		}
 
 		ConnectNode(fromName, (int)fromPort, toName, (int)toPort);
+	}
+
+	private void ForceDisconnect(StringName toName, long toPort)
+	{
+		foreach (var connection in GetConnectionList())
+		{
+			var to = connection["to"].AsStringName();
+			var port = connection["to_port"].AsInt32();
+			if (to == toName && port == toPort)
+			{
+				var fromName = connection["from"].AsStringName();
+				var fromPort = connection["from_port"].AsInt32();
+				OnDisconnectionRequest(fromName, fromPort, toName, toPort);
+			}
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
