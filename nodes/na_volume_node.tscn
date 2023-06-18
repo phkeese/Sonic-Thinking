@@ -37,6 +37,7 @@ text = "Volume"
 [node name="SpinBox" type="SpinBox" parent="Volume"]
 layout_mode = 2
 size_flags_horizontal = 8
+value = 100.0
 alignment = 1
 suffix = "%"
 

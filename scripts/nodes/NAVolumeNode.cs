@@ -19,6 +19,9 @@ public partial class NAVolumeNode : NANode
 		_volumeSpinBox.ValueChanged += OnVolumeChanged;
 		_volumeSlider.ValueChanged += OnVolumeChanged;
 
+		_volumeSpinBox.Value = _volumeSpinBox.Value;
+		_volumeSlider.Value = _volumeSpinBox.Value;
+
 		InputChanged += OnInputChanged;
 	}
 
