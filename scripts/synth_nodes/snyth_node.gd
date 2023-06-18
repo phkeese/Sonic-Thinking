@@ -33,6 +33,5 @@ func finish():
 func _get_input(index: int, default := Vector2.ZERO) -> SynthBuffer:
 	var input := inputs[index]
 	if input == null:
-		print("returned empty buffer to node %s" % name)
 		return SynthBuffer.with_value(default)
 	return input.at(current_buffer_index)

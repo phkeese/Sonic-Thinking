@@ -15,7 +15,7 @@ var _compute_order : Array[SynthNode]
 func _process(_delta):
 	if not SynthGlobals.is_playing():
 		return
-	var needed_buffers := 1
+	var needed_buffers := SynthGlobals.sample_rate / 60
 	for i in needed_buffers:
 		_step()
 	

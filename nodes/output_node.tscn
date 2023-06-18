@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/synth_nodes/output_node.gd" id="1_uchqm"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_7kkfg"]
-mix_rate = 48000.0
+mix_rate = 12000.0
 buffer_length = 0.1
 
 [node name="OutputNode" type="GraphNode" groups=["output_node", "synth_node"]]
