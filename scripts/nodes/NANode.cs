@@ -66,5 +66,8 @@ public abstract partial class NANode : GraphNode
 	/// </summary>
 	public InputChangedHandler InputChanged;
 
+	public static readonly WaveFormat DefaultWaveFormat = WaveFormat.CreateIeeeFloatWaveFormat(48000, 2);
+	public static readonly int DefaultSampleRate = 48_000;
+	public static readonly int DefaultChannelCount = 2;
 }
 

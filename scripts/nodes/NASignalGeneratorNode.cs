@@ -15,7 +15,7 @@ public partial class NASignalGeneratorNode : NANode
 
 		_frequency.ValueChanged += OnFrequencyChanged;
 		_gainSlider.ValueChanged += OnGainChanged;
-
+		
 		_generator.Gain = _gainSlider.Value;
 		_generator.Frequency = _frequency.Value;
 	}
@@ -44,7 +44,7 @@ public partial class NASignalGeneratorNode : NANode
 
 	public const int OutputSlot = 1;
 
-	private SignalGenerator _generator = new SignalGenerator();
+	private readonly SignalGenerator _generator = new SignalGenerator(DefaultSampleRate, DefaultChannelCount);
 	private SpinBox _frequency;
 	private HSlider _gainSlider;
 }
