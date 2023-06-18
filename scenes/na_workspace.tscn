@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cuntk4a4wou5j"]
+[gd_scene load_steps=5 format=3 uid="uid://cuntk4a4wou5j"]
 
 [ext_resource type="Script" path="res://scripts/NAWorkspace.cs" id="1_er6ky"]
 [ext_resource type="PackedScene" uid="uid://bvkmrlvvwdkmh" path="res://nodes/na_output_node.tscn" id="1_i8se7"]
 [ext_resource type="PackedScene" uid="uid://cn2bk255txrv3" path="res://nodes/na_signal_generator.tscn" id="2_d67l1"]
+[ext_resource type="PackedScene" uid="uid://ckecpeu7wlrg0" path="res://nodes/na_volume_node.tscn" id="4_8m7q3"]
 
 [node name="NAWorkspace" type="GraphEdit"]
 anchors_preset = 15
@@ -18,12 +19,12 @@ script = ExtResource("1_er6ky")
 
 [node name="OutputNode" parent="." instance=ExtResource("1_i8se7")]
 layout_mode = 0
-offset_left = 548.0
-offset_top = 181.0
-offset_right = 686.0
-offset_bottom = 261.0
+offset_left = 804.0
+offset_top = 295.0
+offset_right = 942.0
+offset_bottom = 375.0
 mouse_filter = 1
-position_offset = Vector2(548, 181)
+position_offset = Vector2(804, 295)
 
 [node name="NASignalGenerator" parent="." instance=ExtResource("2_d67l1")]
 layout_mode = 0
@@ -42,3 +43,12 @@ offset_right = 366.0
 offset_bottom = 531.0
 mouse_filter = 1
 position_offset = Vector2(120, 367)
+
+[node name="NAVolumeNode" parent="." instance=ExtResource("4_8m7q3")]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 304.0
+offset_right = 696.0
+offset_bottom = 407.0
+mouse_filter = 1
+position_offset = Vector2(458, 304)
