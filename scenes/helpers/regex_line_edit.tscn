@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8umkhi1kqube"]
-
-[ext_resource type="Script" path="res://scripts/regex_line_edit.gd" id="1_ovrpa"]
-
-[node name="RegexLineEdit" type="LineEdit"]
-placeholder_text = "Text..."
-script = ExtResource("1_ovrpa")
