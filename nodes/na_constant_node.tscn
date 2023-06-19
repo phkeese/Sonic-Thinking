@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://buyl1m4uijj3d"]
+
+[ext_resource type="Script" path="res://scripts/nodes/NAConstantNode.cs" id="1_g6fln"]
+
+[node name="NAConstantNode" type="GraphNode"]
+offset_right = 313.0
+offset_bottom = 103.0
+title = "Constant"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 3
+slot/0/right_color = Color(1, 1, 0, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("1_g6fln")
+
+[node name="Value" type="HSlider" parent="."]
+layout_mode = 2
+
+[node name="Limits" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Low" type="SpinBox" parent="Limits"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+max_value = 20000.0
+value = 440.0
+allow_greater = true
+allow_lesser = true
+alignment = 1
+suffix = "Hz"
+
+[node name="Label" type="Label" parent="Limits"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "to"
+horizontal_alignment = 1
+
+[node name="High" type="SpinBox" parent="Limits"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 20000.0
+value = 1000.0
+allow_greater = true
+allow_lesser = true
+alignment = 1
+suffix = "Hz"

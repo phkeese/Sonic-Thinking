@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cn2bk255txrv3"]
+[gd_scene load_steps=3 format=3 uid="uid://cn2bk255txrv3"]
 
 [ext_resource type="Script" path="res://scripts/nodes/NASignalGeneratorNode.cs" id="1_bmuw5"]
+[ext_resource type="PackedScene" uid="uid://be6mgh1g85nuf" path="res://scenes/helpers/frequency_edit.tscn" id="2_5c2la"]
 
 [node name="NASignalGenerator" type="GraphNode"]
 offset_right = 246.0
@@ -61,13 +62,8 @@ layout_mode = 2
 size_flags_horizontal = 2
 text = "Frequency"
 
-[node name="SpinBox" type="SpinBox" parent="Frequency"]
+[node name="SpinBox" parent="Frequency" instance=ExtResource("2_5c2la")]
 layout_mode = 2
-max_value = 20000.0
-value = 440.0
-alignment = 1
-suffix = "Hz"
-select_all_on_focus = true
 
 [node name="WaveForm" type="HBoxContainer" parent="."]
 layout_mode = 2

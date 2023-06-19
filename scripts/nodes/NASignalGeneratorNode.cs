@@ -32,6 +32,7 @@ public partial class NASignalGeneratorNode : NANode
 	{
 		if (slotIndex != FrequencySlot) throw new IndexOutOfRangeException("Invalid input slot.");
 		_frequencyInput = input;
+		_frequency.Editable = input == null;
 	}
 
 	private SignalGeneratorType ResolveWaveType(int selected)
@@ -57,7 +58,6 @@ public partial class NASignalGeneratorNode : NANode
 			float[] f = new float[1];
 			_frequencyInput.Read(f, 0, 1);
 			_generator.Frequency = f[0];
-			GD.Print(f[0]);
 			_frequency.Value = f[0];
 		}
 	}
