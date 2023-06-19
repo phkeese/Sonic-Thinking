@@ -6,9 +6,9 @@
 offset_right = 246.0
 offset_bottom = 118.0
 title = "Signal Generator"
-slot/0/left_enabled = false
-slot/0/left_type = 0
-slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_enabled = true
+slot/0/left_type = 3
+slot/0/left_color = Color(1, 1, 0, 1)
 slot/0/left_icon = null
 slot/0/right_enabled = false
 slot/0/right_type = 0

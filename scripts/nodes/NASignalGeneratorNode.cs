@@ -24,6 +24,14 @@ public partial class NASignalGeneratorNode : NANode
 		_generator.Frequency = _frequency.Value;
 		_generator.Type = ResolveWaveType(_typeButton.Selected);
 		_generator.PhaseReverse[0] = _invertRight.ButtonPressed;
+
+		InputChanged += OnInputChanged;
+	}
+
+	private void OnInputChanged(NANode sender, int slotIndex, ISampleProvider input)
+	{
+		if (slotIndex != FrequencySlot) throw new IndexOutOfRangeException("Invalid input slot.");
+		_frequencyInput = input;
 	}
 
 	private SignalGeneratorType ResolveWaveType(int selected)
@@ -42,8 +50,16 @@ public partial class NASignalGeneratorNode : NANode
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
+		if (_frequencyInput != null)
+		{
+			float[] f = new float[1];
+			_frequencyInput.Read(f, 0, 1);
+			_generator.Frequency = f[0];
+			GD.Print(f[0]);
+			_frequency.Value = f[0];
+		}
 	}
 
 	protected override ISampleProvider GetOutput(int port)
@@ -54,8 +70,10 @@ public partial class NASignalGeneratorNode : NANode
 	}
 
 	public const int OutputSlot = 1;
+	private const int FrequencySlot = 0;
 
 	private readonly SignalGenerator _generator = new SignalGenerator(DefaultSampleRate, DefaultChannelCount);
+	private ISampleProvider _frequencyInput;
 	private SpinBox _frequency;
 	private HSlider _gainSlider;
 	private OptionButton _typeButton;

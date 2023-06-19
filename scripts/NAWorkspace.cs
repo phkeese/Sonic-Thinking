@@ -8,6 +8,7 @@ public partial class NAWorkspace : GraphEdit
 	public override void _Ready()
 	{
 		AddValidConnectionType((int)SignalTypes.Wave, (int)SignalTypes.Wave);
+		AddValidConnectionType((int)SignalTypes.Tone, (int)SignalTypes.Tone);
 		
 		ConnectionRequest += OnConnectionRequest;
 		DisconnectionRequest += OnDisconnectionRequest;
