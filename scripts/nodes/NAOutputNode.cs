@@ -11,8 +11,13 @@ public partial class NAOutputNode : NANode
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_wo.Init(_rebinding);
+		_notify.Source = _rebinding;
+		_wo.Init(_notify);
 		_wo.Play();
+
+		_debugLed = GetNode<TextureRect>("TextureRect");
+		_notify.PostRead += (buffer, offset, count) => _debugLed.Visible = !_debugLed.Visible;
+		_notify.PostRead += (buffer, offset, count) => GD.Print("Read!");
 		
 		InputChanged += OnInputChanged;
 	}
@@ -36,4 +41,7 @@ public partial class NAOutputNode : NANode
 	
 	private readonly WaveOutEvent _wo = new WaveOutEvent();
 	private readonly RebindingProvider _rebinding = new RebindingProvider();
+	private readonly NotifyOnReadProvider _notify = new NotifyOnReadProvider();
+
+	private TextureRect _debugLed;
 }

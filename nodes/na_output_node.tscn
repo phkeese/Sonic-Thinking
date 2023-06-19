@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvkmrlvvwdkmh"]
+[gd_scene load_steps=3 format=3 uid="uid://bvkmrlvvwdkmh"]
 
 [ext_resource type="Script" path="res://scripts/nodes/NAOutputNode.cs" id="1_xbrvd"]
+[ext_resource type="Texture2D" uid="uid://1o0h0qtsjeq8" path="res://assets/ui/red_tick.png" id="2_kocr7"]
 
 [node name="OutputNode" type="GraphNode"]
 offset_right = 138.0
@@ -15,8 +16,21 @@ slot/0/right_type = 0
 slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
 script = ExtResource("1_xbrvd")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 text = "Input"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_kocr7")
