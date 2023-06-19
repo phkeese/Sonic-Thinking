@@ -64,10 +64,10 @@ public abstract partial class NANode : GraphNode
 	/// <summary>
 	/// Fired when an input connection is made or broken.
 	/// </summary>
-	public InputChangedHandler InputChanged;
+	protected InputChangedHandler InputChanged;
 
-	public static readonly WaveFormat DefaultWaveFormat = WaveFormat.CreateIeeeFloatWaveFormat(48000, 2);
-	public static readonly int DefaultSampleRate = 48_000;
-	public static readonly int DefaultChannelCount = 2;
+	protected const int DefaultSampleRate = 41_000;
+	protected const int DefaultChannelCount = 1;
+	public static readonly WaveFormat DefaultWaveFormat = WaveFormat.CreateIeeeFloatWaveFormat(DefaultSampleRate, DefaultChannelCount);
 }
 

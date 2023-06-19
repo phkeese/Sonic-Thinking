@@ -18,12 +18,12 @@ public partial class NASignalGeneratorNode : NANode
 		_frequency.ValueChanged += OnFrequencyChanged;
 		_gainSlider.ValueChanged += OnGainChanged;
 		_typeButton.ItemSelected += index => { _generator.Type = ResolveWaveType((int)index); };
-		_invertRight.Toggled += pressed => _generator.PhaseReverse[1] = pressed; 
+		_invertRight.Toggled += pressed => _generator.PhaseReverse[0] = pressed; 
 		
 		_generator.Gain = _gainSlider.Value;
 		_generator.Frequency = _frequency.Value;
 		_generator.Type = ResolveWaveType(_typeButton.Selected);
-		_generator.PhaseReverse[1] = _invertRight.ButtonPressed;
+		_generator.PhaseReverse[0] = _invertRight.ButtonPressed;
 	}
 
 	private SignalGeneratorType ResolveWaveType(int selected)
