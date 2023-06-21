@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cuntk4a4wou5j"]
+[gd_scene load_steps=8 format=3 uid="uid://cuntk4a4wou5j"]
 
 [ext_resource type="Script" path="res://scripts/NAWorkspace.cs" id="1_er6ky"]
 [ext_resource type="PackedScene" uid="uid://bvkmrlvvwdkmh" path="res://nodes/na_output_node.tscn" id="1_i8se7"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cn2bk255txrv3" path="res://nodes/na_signal_generator.tscn" id="2_d67l1"]
 [ext_resource type="PackedScene" uid="uid://ckecpeu7wlrg0" path="res://nodes/na_volume_node.tscn" id="4_8m7q3"]
 [ext_resource type="PackedScene" uid="uid://buyl1m4uijj3d" path="res://nodes/na_constant_node.tscn" id="6_0ookn"]
+[ext_resource type="PackedScene" uid="uid://bbqsa1rvyqsi6" path="res://nodes/na_portamento.tscn" id="7_tudda"]
 
 [node name="NAWorkspace" type="GraphEdit"]
 anchors_preset = 15
@@ -74,3 +75,12 @@ offset_right = 747.0
 offset_bottom = 555.0
 mouse_filter = 1
 position_offset = Vector2(434, 452)
+
+[node name="NAPortamento" parent="." instance=ExtResource("7_tudda")]
+layout_mode = 0
+offset_left = 776.0
+offset_top = 136.0
+offset_right = 1078.0
+offset_bottom = 221.0
+mouse_filter = 1
+position_offset = Vector2(776, 136)
