@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SynthGlobals="*res://scripts/autoload/synth_globals.gd"
+Compositor="*res://scripts/autoload/Compositor.cs"
 
 [dotnet]
 
