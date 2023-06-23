@@ -20,5 +20,6 @@ script = ExtResource("1_xbrvd")
 
 [node name="Volume" parent="." instance=ExtResource("2_mmswl")]
 layout_mode = 2
-Step = 1.0
 Suffix = "%"
+TickCount = 10
+TicksOnBorders = true
