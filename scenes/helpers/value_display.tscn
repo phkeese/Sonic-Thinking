@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbun2j8ycfmgr"]
+
+[ext_resource type="Script" path="res://scripts/helpers/ValueDisplay.cs" id="1_cn472"]
+
+[node name="ValueDisplay" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+script = ExtResource("1_cn472")
+Label = "Value:"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Value:"
+
+[node name="Display" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "0"
+alignment = 1
+editable = false
