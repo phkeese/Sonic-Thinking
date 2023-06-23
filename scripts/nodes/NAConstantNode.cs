@@ -13,13 +13,12 @@ public partial class NAConstantNode : NANode
 	{
 		Slider.MinValue = Low.Value;
 		Slider.MaxValue = High.Value;
-		Slider.ValueChanged += value =>
-		{
-			_constant.Value = (float)value;
-		};
+		Slider.ExpEdit = ExpButton.ButtonPressed;
+		Slider.ValueChanged += value => _constant.Value = (float)value;
 
 		Low.ValueChanged += value => Slider.MinValue = value;
 		High.ValueChanged += value => Slider.MaxValue = value;
+		ExpButton.Toggled += value => Slider.ExpEdit = value;
 	}
 	
 	protected override ISampleProvider GetOutput(int port)
@@ -31,6 +30,5 @@ public partial class NAConstantNode : NANode
 	private SpinBox Low => GetNodeOrNull<SpinBox>("Limits/Low");
 	private SpinBox High => GetNodeOrNull<SpinBox>("Limits/High");
 	private SliderInput Slider => GetNodeOrNull<SliderInput>("Slider");
-	
-	private const int OutputSlot = 0;
+	private Button ExpButton => GetNodeOrNull<Button>("%Exp");
 }
