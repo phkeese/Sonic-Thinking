@@ -7,8 +7,11 @@ public partial class NAWorkspace : GraphEdit
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		AddValidConnectionType((int)SignalTypes.Wave, (int)SignalTypes.Wave);
-		AddValidConnectionType((int)SignalTypes.Tone, (int)SignalTypes.Tone);
+		foreach (var left in Enum.GetValues<SignalTypes>())
+		{
+			AddValidConnectionType((int)left, (int)SignalTypes.Debug);
+		}
+		
 		
 		ConnectionRequest += OnConnectionRequest;
 		DisconnectionRequest += OnDisconnectionRequest;

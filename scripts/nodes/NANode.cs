@@ -17,9 +17,14 @@ public enum SignalTypes : int
 	Gate = 2,
 	
 	/// <summary>
-	/// Frequency signal in 1V/Octave
+	/// Frequency signal in 1V/Octave.
 	/// </summary>
 	Tone = 3,
+	
+	/// <summary>
+	/// Can take any input.
+	/// </summary>
+	Debug = 4,
 }
 
 public abstract partial class NANode : GraphNode

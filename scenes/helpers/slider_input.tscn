@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://behciv7n2c01g"]
+
+[ext_resource type="Script" path="res://scripts/helpers/SliderInput.cs" id="1_t1am2"]
+
+[node name="SliderInput" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_t1am2")
+Label = "Value:"
+MaxValue = 100.0
+Step = 1.0
+
+[node name="TopRow" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="TopRow"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Value:"
+
+[node name="SpinBox" type="SpinBox" parent="TopRow"]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 1
+
+[node name="Slider" type="HSlider" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3

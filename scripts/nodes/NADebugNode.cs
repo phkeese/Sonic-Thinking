@@ -5,6 +5,12 @@ using SonicThinking.scripts.sample_providers;
 
 namespace SonicThinking.scripts.nodes;
 
+/// <summary>
+/// Allows inspection of a signal input.
+///	          +---------------------------+
+/// Input --> |+ ReadNotify -> Rebinding +| --> Output
+///           +---------------------------+
+/// </summary>
 public partial class NADebugNode : NANode
 {
 	// Called when the node enters the scene tree for the first time.
@@ -19,9 +25,16 @@ public partial class NADebugNode : NANode
 
 	private void OnInputChanged(NANode sender, int slot, ISampleProvider input)
 	{
-		var notify = new ReadNotifyProvider(input);
-		notify.OnRead += OnRead;
-		_rebinding.Source = notify;
+		if (input != null)
+		{
+			var notify = new ReadNotifyProvider(input);
+			notify.OnRead += OnRead;
+			_rebinding.Source = notify;
+		}
+		else
+		{
+			_rebinding.Source = null;
+		}
 	}
 
 	private void OnRead(float[] buffer, int offset, int count, int result)
@@ -34,7 +47,6 @@ public partial class NADebugNode : NANode
 		var last = buffer[result - 1];
 		_led.Modulate = Colors.Red * last;
 		_value.Value = last;
-		GD.Print(last);
 	}
 
 	protected override ISampleProvider GetOutput(int port) => _rebinding;
