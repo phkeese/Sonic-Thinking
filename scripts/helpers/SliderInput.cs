@@ -12,6 +12,7 @@ public partial class SliderInput : Control
         SBox.ValueChanged += value => Value = value;
     }
 
+    #region Exports
     [Export]
     public string Label
     {
@@ -106,6 +107,14 @@ public partial class SliderInput : Control
             if (Slider != null) Slider.TicksOnBorders = value;
         }
     }
+    #endregion
+
+    #region Signals
+
+    [Signal]
+    public delegate void ValueChangedEventHandler(double value);
+
+    #endregion
 
     private Label LabelNode => GetNodeOrNull<Label>("TopRow/Label");
     private Slider Slider => GetNodeOrNull<Slider>("Slider");

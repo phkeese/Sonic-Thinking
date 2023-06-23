@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://buyl1m4uijj3d"]
+[gd_scene load_steps=3 format=3 uid="uid://buyl1m4uijj3d"]
 
 [ext_resource type="Script" path="res://scripts/nodes/NAConstantNode.cs" id="1_g6fln"]
+[ext_resource type="PackedScene" uid="uid://behciv7n2c01g" path="res://scenes/helpers/slider_input.tscn" id="2_l4xqg"]
 
 [node name="NAConstantNode" type="GraphNode"]
 offset_right = 313.0
@@ -26,8 +27,10 @@ slot/1/right_icon = null
 slot/1/draw_stylebox = true
 script = ExtResource("1_g6fln")
 
-[node name="Value" type="HSlider" parent="."]
+[node name="Slider" parent="." instance=ExtResource("2_l4xqg")]
 layout_mode = 2
+Step = 0.1
+Suffix = "Hz"
 
 [node name="Limits" type="HBoxContainer" parent="."]
 layout_mode = 2
