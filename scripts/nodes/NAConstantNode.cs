@@ -15,6 +15,7 @@ public partial class NAConstantNode : NANode
 		Slider.MaxValue = High.Value;
 		Slider.ExpEdit = ExpButton.ButtonPressed;
 		Slider.ValueChanged += value => _constant.Value = (float)value;
+		_constant.Value = (float)Slider.Value;
 
 		Low.ValueChanged += value => Slider.MinValue = value;
 		High.ValueChanged += value => Slider.MaxValue = value;

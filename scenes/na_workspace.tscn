@@ -19,68 +19,6 @@ use_snap = false
 minimap_enabled = false
 arrange_nodes_button_hidden = true
 script = ExtResource("1_er6ky")
-
-[node name="OutputNode" parent="." instance=ExtResource("1_i8se7")]
-layout_mode = 0
-offset_left = 804.0
-offset_top = 295.0
-offset_right = 1026.0
-offset_bottom = 400.0
-mouse_filter = 1
-position_offset = Vector2(804, 295)
-
-[node name="NASignalGenerator" parent="." instance=ExtResource("2_d67l1")]
-layout_mode = 0
-offset_left = 433.0
-offset_top = 67.0
-offset_right = 679.0
-offset_bottom = 264.0
-mouse_filter = 1
-position_offset = Vector2(433, 67)
-
-[node name="NASignalGenerator2" parent="." instance=ExtResource("2_d67l1")]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 367.0
-offset_right = 366.0
-offset_bottom = 564.0
-mouse_filter = 1
-position_offset = Vector2(120, 367)
-
-[node name="NAVolumeNode" parent="." instance=ExtResource("4_8m7q3")]
-layout_mode = 0
-offset_left = 458.0
-offset_top = 304.0
-offset_right = 696.0
-offset_bottom = 407.0
-mouse_filter = 1
-position_offset = Vector2(458, 304)
+NodeScenes = [ExtResource("2_d67l1"), ExtResource("1_i8se7"), ExtResource("2_1q2g5"), ExtResource("6_0ookn"), ExtResource("7_2pmr6"), ExtResource("4_8m7q3")]
 
 [node name="NodeMenu" type="PopupMenu" parent="."]
-
-[node name="NASequencerNode" parent="." instance=ExtResource("2_1q2g5")]
-layout_mode = 0
-offset_left = 108.0
-offset_top = 102.0
-offset_right = 331.0
-offset_bottom = 253.0
-mouse_filter = 1
-position_offset = Vector2(108, 102)
-
-[node name="NAConstantNode" parent="." instance=ExtResource("6_0ookn")]
-layout_mode = 0
-offset_left = 434.0
-offset_top = 452.0
-offset_right = 747.0
-offset_bottom = 555.0
-mouse_filter = 1
-position_offset = Vector2(434, 452)
-
-[node name="NADebugNode" parent="." instance=ExtResource("7_2pmr6")]
-layout_mode = 0
-offset_left = 778.0
-offset_top = 88.0
-offset_right = 999.0
-offset_bottom = 234.0
-mouse_filter = 1
-position_offset = Vector2(778, 88)

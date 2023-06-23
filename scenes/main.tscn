@@ -1,12 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cex4idm5n1ab5"]
+[gd_scene load_steps=6 format=3 uid="uid://cex4idm5n1ab5"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_13if0"]
 [ext_resource type="Texture2D" uid="uid://hqyydema5gaf" path="res://assets/ui/star.png" id="1_ipxyc"]
 [ext_resource type="Texture2D" uid="uid://1yusn654vkb1" path="res://assets/ui/open.png" id="2_m0vru"]
 [ext_resource type="Texture2D" uid="uid://d34s2obu3nfp3" path="res://assets/ui/save.png" id="3_r2dbh"]
-[ext_resource type="PackedScene" uid="uid://bvkmrlvvwdkmh" path="res://nodes/na_output_node.tscn" id="6_jepl4"]
-[ext_resource type="PackedScene" uid="uid://cn2bk255txrv3" path="res://nodes/na_signal_generator.tscn" id="7_qaiy6"]
-[ext_resource type="PackedScene" uid="uid://ckecpeu7wlrg0" path="res://nodes/na_volume_node.tscn" id="8_1i2aa"]
 [ext_resource type="PackedScene" uid="uid://cuntk4a4wou5j" path="res://scenes/na_workspace.tscn" id="8_tl6xe"]
 
 [node name="Main" type="Panel"]
@@ -54,4 +51,4 @@ item_3/id = 2
 [node name="NAWorkspace" parent="VBoxContainer" instance=ExtResource("8_tl6xe")]
 layout_mode = 2
 size_flags_vertical = 3
-NodeScenes = [ExtResource("6_jepl4"), ExtResource("7_qaiy6"), ExtResource("8_1i2aa")]
+scroll_offset = Vector2(0, -35)
