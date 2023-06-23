@@ -53,6 +53,7 @@ public partial class SliderInput : Control
         {
             if (SBox != null) SBox.Value = value;
             if (Slider != null) Slider.Value = value;
+            EmitSignal(SignalName.ValueChanged, value);
         }
     }
 

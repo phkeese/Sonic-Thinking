@@ -13,7 +13,10 @@ public partial class NAConstantNode : NANode
 	{
 		Slider.MinValue = Low.Value;
 		Slider.MaxValue = High.Value;
-		Slider.ValueChanged += value => _constant.Value = (float)value;
+		Slider.ValueChanged += value =>
+		{
+			_constant.Value = (float)value;
+		};
 
 		Low.ValueChanged += value => Slider.MinValue = value;
 		High.ValueChanged += value => Slider.MaxValue = value;
