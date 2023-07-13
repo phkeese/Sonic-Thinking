@@ -13,7 +13,10 @@ public partial class NASignalGeneratorNode : NANode
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_waveTable = GetNode<WaveTable>("WaveTable");
 		InputChanged += OnInputChanged;
+
+		_generator.WaveTable = _waveTable.Wave;
 	}
 
 	private void OnInputChanged(NANode sender, int slotIndex, ISampleProvider input)
@@ -31,6 +34,7 @@ public partial class NASignalGeneratorNode : NANode
 
 	private readonly RebindingProvider _frequencyProvider = new RebindingProvider();
 	private readonly LUTSignalGenerator _generator;
+	private WaveTable _waveTable;
 
 	public NASignalGeneratorNode()
 	{

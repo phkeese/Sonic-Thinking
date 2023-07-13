@@ -1,10 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cn2bk255txrv3"]
+[gd_scene load_steps=3 format=3 uid="uid://cn2bk255txrv3"]
 
 [ext_resource type="Script" path="res://scripts/nodes/NASignalGeneratorNode.cs" id="1_bmuw5"]
+[ext_resource type="PackedScene" uid="uid://cue4n8efexnbe" path="res://scenes/helpers/wave_table.tscn" id="2_yn7qc"]
 
 [node name="NASignalGenerator" type="GraphNode"]
-offset_right = 110.0
-offset_bottom = 80.0
+offset_right = 327.0
+offset_bottom = 249.0
 title = "Oscillator"
 slot/0/left_enabled = true
 slot/0/left_type = 3
@@ -15,9 +16,21 @@ slot/0/right_type = 1
 slot/0/right_color = Color(1, 0, 0, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 1
+slot/1/right_color = Color(1, 0, 0, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
 script = ExtResource("1_bmuw5")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 text = "Signal"
 horizontal_alignment = 1
+
+[node name="WaveTable" parent="." instance=ExtResource("2_yn7qc")]
+layout_mode = 2

@@ -6,7 +6,6 @@ namespace SonicThinking.scripts.sample_providers;
 
 class LUTSignalGenerator : ISampleProvider
 {
-    private readonly double[] _waveTable;
     private double _phase;
     private readonly ISampleProvider _frequencySource;
 
@@ -19,11 +18,6 @@ class LUTSignalGenerator : ISampleProvider
         
         int sampleRate = WaveFormat.SampleRate;
         
-        _waveTable = new double[sampleRate];
-        for (int index = 0; index < sampleRate; ++index)
-            _waveTable[index] = (float)Math.Sin(2 * Math.PI * (double)index / sampleRate);
-        // For sawtooth instead of sine: waveTable[index] = (float)index / sampleRate;
-
         _frequencySource = frequencySource;
     }
 
@@ -37,13 +31,13 @@ class LUTSignalGenerator : ISampleProvider
         for (int n = 0; n < count; ++n)
         {
             float frequency = frequencies[n + offset];
-            float phaseStep = _waveTable.Length * (frequency / WaveFormat.SampleRate);
+            float phaseStep = WaveTable.Length * (frequency / WaveFormat.SampleRate);
             
-            int waveTableIndex = (int)_phase % _waveTable.Length;
-            buffer[n + offset] = (float)(this._waveTable[waveTableIndex]);
+            int waveTableIndex = (int)_phase % WaveTable.Length;
+            buffer[n + offset] = (float)(this.WaveTable[waveTableIndex]);
             _phase += phaseStep;
-            if (_phase > (double)_waveTable.Length)
-                _phase -= (double)_waveTable.Length;
+            if (_phase > (double)WaveTable.Length)
+                _phase -= (double)WaveTable.Length;
         }
         return count;
     }
@@ -54,4 +48,6 @@ class LUTSignalGenerator : ISampleProvider
         _frequencySource.Read(buffer, offset, count);
         return buffer;
     }
+
+    public float[] WaveTable;
 }
