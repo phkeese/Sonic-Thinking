@@ -22,9 +22,9 @@ public enum SignalTypes : int
 	Tone = 3,
 	
 	/// <summary>
-	/// Can take any input.
+	/// Can take any input and output to anything.
 	/// </summary>
-	Debug = 4,
+	Any = 4,
 }
 
 public abstract partial class NANode : GraphNode

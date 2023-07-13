@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://3tkhc8ilosf5"]
+
+[ext_resource type="Script" path="res://scripts/nodes/NACacheNode.cs" id="1_dcmha"]
+
+[node name="NACacheNode" type="GraphNode"]
+title = "Cache Node"
+slot/0/left_enabled = true
+slot/0/left_type = 4
+slot/0/left_color = Color(0.632053, 0.342461, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 4
+slot/0/right_color = Color(0.632053, 0.342461, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_dcmha")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Cache"
+horizontal_alignment = 1

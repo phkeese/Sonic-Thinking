@@ -9,17 +9,9 @@ namespace SonicThinking.scripts.nodes;
 
 public partial class NASignalGeneratorNode : NANode
 {
-	public NASignalGeneratorNode()
-	{
-		_cache = new CachingSampleProvider(_generator);
-	}
-	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GetNode<Compositor>("/root/Compositor").ForceCache += _cache.Force;
-		GetNode<Compositor>("/root/Compositor").ClearCache += _cache.Clear;
-		
 		_frequency = GetNode<SpinBox>("Frequency/SpinBox");
 		_gainSlider = GetNode<HSlider>("GainSlider");
 		_typeButton = GetNode<OptionButton>("WaveForm/OptionButton");
@@ -74,15 +66,14 @@ public partial class NASignalGeneratorNode : NANode
 
 	protected override ISampleProvider GetOutput(int port)
 	{
-		return _cache;
+		return _generator;
 	}
 
 	public const int OutputSlot = 1;
 	private const int FrequencySlot = 0;
 
 	private readonly SignalGenerator _generator = new SignalGenerator(DefaultSampleRate, DefaultChannelCount);
-	private readonly CachingSampleProvider _cache;
-	
+
 	private ISampleProvider _frequencyInput;
 	private SpinBox _frequency;
 	private HSlider _gainSlider;

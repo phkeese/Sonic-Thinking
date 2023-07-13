@@ -9,7 +9,8 @@ public partial class NAWorkspace : GraphEdit
 	{
 		foreach (var left in Enum.GetValues<SignalTypes>())
 		{
-			AddValidConnectionType((int)left, (int)SignalTypes.Debug);
+			AddValidConnectionType((int)left, (int)SignalTypes.Any);
+			AddValidConnectionType((int)SignalTypes.Any, (int)left);
 		}
 		
 		
