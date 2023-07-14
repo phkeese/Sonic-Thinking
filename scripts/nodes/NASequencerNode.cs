@@ -11,29 +11,58 @@ public partial class NASequencerNode : NANode
 	public override void _Ready()
 	{
 		_timingBox = GetNode<SpinBox>("Timing/SpinBox");
-		_addButton = GetNode<Button>("AddButton");
-
-		_addButton.Pressed += AddPart;
+		_removeButton = GetNode<Button>("Buttons/Remove");
+		
+		foreach (var child in GetChildren())
+		{
+			if (child.IsInGroup("internal"))
+			{
+				RemoveChild(child);
+				AddChild(child, false, InternalMode.Front);
+			}
+		}
+		AddStep();
 	}
 
-	private void AddPart()
+	private void AddStep()
 	{
+		_removeButton.Disabled = false;
+		
 		var FrequencyEdit = GD.Load<PackedScene>("res://scenes/helpers/frequency_edit.tscn");
 		var instance = FrequencyEdit.Instantiate<SpinBox>();
+
+		int slot_index = GetChildCount(true);
 		AddChild(instance);
-		GD.Print("Yes");
-		MoveChild(instance, _sequenceEndIndex++);
+		
+		SetSlotEnabledLeft(slot_index, true);
+		SetSlotColorLeft(slot_index, NANode.SignalColor(SignalType.Frequency));
+		SetSlotTypeLeft(slot_index, (int)SignalType.Frequency);
 	}
 
+	private void RemoveStep()
+	{
+		if (GetChildCount() == 0)
+			return;
+
+		var last = GetChild(GetChildCount() - 1);
+		RemoveChild(last);
+		last.QueueFree();
+
+		if (GetChildCount() == 0)
+		{
+			_removeButton.Disabled = true;
+		}
+	}
+	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		_time += delta;
 		if (_nextTrigger <= _time)
 		{
-			int sequenceLength = _sequenceEndIndex - SequenceStartIndex;
+			int sequenceLength = GetChildCount();
 			_sequenceIndex = (_sequenceIndex + 1) % sequenceLength;
-			var input = GetChild<SpinBox>(SequenceStartIndex + _sequenceIndex);
+			var input = GetChild<SpinBox>(_sequenceIndex);
 			_constant.Value = (float)input.Value;
 			_nextTrigger = _time + _timingBox.Value;
 		}
@@ -41,12 +70,11 @@ public partial class NASequencerNode : NANode
 
 	private readonly ConstantSampleProvider _constant = new ConstantSampleProvider();
 	private SpinBox _timingBox;
-	private Button _addButton;
-	private const int SequenceStartIndex = 1;
-	private int _sequenceEndIndex = SequenceStartIndex + 1;
-	private int _sequenceIndex = 0;
+	private Button _removeButton;
+	
 	private double _time = 0.0;
 	private double _nextTrigger = 0.0;
+	private int _sequenceIndex = 0;
 
 	private const int SequenceOutput = 0;
 	protected override ISampleProvider GetOutput(int port)

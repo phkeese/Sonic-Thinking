@@ -1,28 +1,29 @@
+using System;
 using Godot;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 
 namespace SonicThinking.scripts.nodes;
 
-public enum SignalTypes : int
+public enum SignalType : int
 {
 	/// <summary>
-	/// Audio signal.
+	/// Audio signal. Red.
 	/// </summary>
 	Wave = 1,
 	
 	/// <summary>
-	/// Binary enable signal.
+	/// Binary enable signal. Green.
 	/// </summary>
 	Gate = 2,
 	
 	/// <summary>
-	/// Frequency signal in 1V/Octave.
+	/// Frequency signal in 1V/Octave. Yellow.
 	/// </summary>
-	Tone = 3,
+	Frequency = 3,
 	
 	/// <summary>
-	/// Can take any input and output to anything.
+	/// Can take any input and output to anything. Purple.
 	/// </summary>
 	Any = 4,
 }
@@ -65,6 +66,30 @@ public abstract partial class NANode : GraphNode
 	/// Handles a change in connections to this node.
 	/// </summary>
 	public delegate void InputChangedHandler(NANode sender, int slotIndex, ISampleProvider input);
+	
+	
+	/// <summary>
+	/// Maps a SignalType to a Color
+	/// </summary>
+	/// <param name="signalType">SignalType to request color for.</param>
+	/// <returns>Corresponding color.</returns>
+	/// <exception cref="ArgumentOutOfRangeException"></exception>
+	public static Color SignalColor(SignalType signalType)
+	{
+		switch (signalType)
+		{
+			case SignalType.Wave:
+				return Colors.Red;
+			case SignalType.Gate:
+				return Colors.Green;
+			case SignalType.Frequency:
+				return Colors.Yellow;
+			case SignalType.Any:
+				return Colors.Purple;
+			default:
+				throw new ArgumentOutOfRangeException(nameof(signalType), signalType, null);
+		}
+	}
 
 	/// <summary>
 	/// Fired when an input connection is made or broken.
