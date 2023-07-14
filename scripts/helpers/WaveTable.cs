@@ -78,9 +78,8 @@ public partial class WaveTable : Panel
 		var deltaI = rightIndex - leftIndex;
 
 
-		var startY = Mathf.Remap(left.Y, 0f, height, 1f, -1f);
-		var endY = Mathf.Remap(right.Y, 0f, height, 1f, -1f);
-		var deltaY = endY - startY;
+		var startY = Mathf.Clamp(Mathf.Remap(left.Y, 0f, height, 1f, -1f),-1,1);
+		var endY = Mathf.Clamp(Mathf.Remap(right.Y, 0f, height, 1f, -1f),-1,1);
 		var tStep = 1f / deltaI;
 
 		for (int i = 0; i < deltaI; i++)
@@ -96,7 +95,7 @@ public partial class WaveTable : Panel
 
 	public WaveTable()
 	{
-		int sampleRate = 1000;//NANode.DefaultWaveFormat.SampleRate;
+		int sampleRate = NANode.DefaultWaveFormat.SampleRate;
 		Wave = new float[sampleRate];
         
 		Wave = new float[sampleRate];
