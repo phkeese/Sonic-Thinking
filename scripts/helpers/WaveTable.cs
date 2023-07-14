@@ -18,6 +18,7 @@ public partial class WaveTable : Panel
 		float width = GetRect().Size.X;
 		float step = 1.0f / width;
 
+		DrawLine(new Vector2(0,centerline), new Vector2(width, centerline), Colors.LightGray);
 		Vector2 last = new Vector2(0.0f, centerline);
 
 		for (int x = 1; x < width; x++)
