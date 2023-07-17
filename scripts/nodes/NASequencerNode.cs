@@ -68,6 +68,7 @@ public partial class NASequencerNode : NANode
 		}
 	}
 
+	
 	private readonly ConstantSampleProvider _constant = new ConstantSampleProvider();
 	private SpinBox _timingBox;
 	private Button _removeButton;

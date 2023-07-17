@@ -13,7 +13,8 @@ public enum SignalType : int
 	Wave = 1,
 	
 	/// <summary>
-	/// Binary enable signal. Green.
+	/// General Control Voltage. Green.
+	/// When interpreted as a boolean, [0;0.5) is false and [0.5;1] is true.
 	/// </summary>
 	Gate = 2,
 	
