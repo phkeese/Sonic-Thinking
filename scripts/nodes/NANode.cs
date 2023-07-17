@@ -46,9 +46,8 @@ public abstract partial class NANode : GraphNode
 	/// <param name="toPort">Slot the connection is made to.</param>
 	public void ConnectInput(NANode from, int fromPort, int toPort)
 	{
-		var slot = GetConnectionInputSlot(toPort);
 		var input= from.GetOutput(fromPort);
-		InputChanged?.Invoke(this, slot, input);
+		InputChanged?.Invoke(this, toPort, input);
 	}
 
 	/// <summary>
@@ -66,7 +65,7 @@ public abstract partial class NANode : GraphNode
 	/// <summary>
 	/// Handles a change in connections to this node.
 	/// </summary>
-	public delegate void InputChangedHandler(NANode sender, int slotIndex, ISampleProvider input);
+	public delegate void InputChangedHandler(NANode sender, int portIndex, ISampleProvider input);
 	
 	
 	/// <summary>

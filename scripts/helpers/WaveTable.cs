@@ -90,6 +90,8 @@ public partial class WaveTable : Panel
 		}
 		
 		QueueRedraw();
+
+		EmitSignal(SignalName.ShapeChanged);
 	}
 
 	public float[] Wave;
@@ -106,6 +108,9 @@ public partial class WaveTable : Panel
 			// For sawtooth instead of sine: waveTable[index] = (float)index / sampleRate;
 		}
 	}
+	
+	[Signal]
+	public delegate void ShapeChangedEventHandler();
 
 	public float Sample(float phase)
 	{

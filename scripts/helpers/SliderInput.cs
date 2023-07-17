@@ -108,6 +108,17 @@ public partial class SliderInput : Control
 			if (Slider != null) Slider.TicksOnBorders = value;
 		}
 	}
+
+	[Export]
+	public bool Editable
+	{
+		get => SBox.Editable;
+		set
+		{
+			if (SBox != null) SBox.Editable = value;
+			if (Slider != null) Slider.Editable = value;
+		}
+	}
 	#endregion
 
 	#region Signals
