@@ -36,6 +36,7 @@ public partial class NAEdgeDetectorNode : NANode
 				break;
 			case 1:
 				_threshold.Source = input;
+				_thresholdSlider.Editable = input == null;
 				break;
 			default:
 				throw new ArgumentException("Invalid input port.");
