@@ -37,7 +37,7 @@ public abstract partial class NANode : GraphNode
 	/// Save all state into a variant to be written to disk and later restored.
 	/// </summary>
 	/// <returns>Data for this Node or null if none is to be saved</returns>
-	public Variant? Serialize()
+	public virtual Dictionary Serialize()
 	{
 		return null;
 	}
@@ -46,7 +46,7 @@ public abstract partial class NANode : GraphNode
 	/// Restore internal state from previously serialized data.
 	/// </summary>
 	/// <param name="state">State to be restored.</param>
-	public void Deserialize(Variant state)
+	public virtual void Deserialize(Dictionary state)
 	{
 	}
 

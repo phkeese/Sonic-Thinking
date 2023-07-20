@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Godot.Collections;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using SonicThinking.scripts.autoload;
@@ -10,6 +11,19 @@ namespace SonicThinking.scripts.nodes;
 
 public partial class NAOutputNode : NANode
 {
+	public override Dictionary Serialize()
+	{
+		return new Dictionary()
+		{
+			{ "volume", VolumeSlider.Value },
+		};
+	}
+
+	public override void Deserialize(Dictionary state)
+	{
+		VolumeSlider.Value = state["volume"].AsDouble();
+	}
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

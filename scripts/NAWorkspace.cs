@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Godot.Collections;
 using SonicThinking.scripts.nodes;
@@ -38,10 +39,31 @@ public partial class NAWorkspace : GraphEdit
 		};
 	}
 
+	/// <summary>
+	/// Clear all connections and audio nodes.
+	/// </summary>
+	public void Clear()
+	{
+		// Clear connections
+		foreach (var connection in GetConnectionList())
+		{
+			EmitSignal(SignalName.DisconnectionRequest, connection["from"], connection["from_port"], connection["to"],
+				connection["to_port"]);
+		}
+		
+		// Clear nodes
+		foreach (var node in _nodes)
+		{
+			RemoveChild(node);
+			node.QueueFree();
+		}
+		_nodes.Clear();
+	}
+
 	public Dictionary Serialize()
 	{
 		var nodes = new Array<Dictionary>();
-		foreach (var node in GetTree().GetNodesInGroup("audio_nodes"))
+		foreach (var node in _nodes)
 		{
 			var naNode = node as NANode;
 			Debug.Assert(naNode != null, nameof(naNode) + " != null");
@@ -81,12 +103,13 @@ public partial class NAWorkspace : GraphEdit
 			var node = scene.Instantiate<NANode>();
 			node.PositionOffset = position;
 			node.Name = name;
+			AddChild(node);
+			_nodes.Add(node);
+			
 			if (nodeState.TryGetValue("state", out var internalState))
 			{
-				node.Deserialize(internalState);
+				node.Deserialize(internalState.AsGodotDictionary());
 			}
-			
-			AddChild(node);
 		}
 
 		var connections = state["connections"].AsGodotArray<Dictionary>();
@@ -104,7 +127,7 @@ public partial class NAWorkspace : GraphEdit
 		var instance = NodeScenes[index].Instantiate<NANode>();
 		AddChild(instance);
 		instance.PositionOffset = position;
-		instance.AddToGroup("audio_nodes");
+		_nodes.Add(instance);
 	}
 
 	private void OnDisconnectionRequest(StringName fromName, long fromPort, StringName toName, long toPort)
@@ -163,6 +186,7 @@ public partial class NAWorkspace : GraphEdit
 	}
 
 	private PopupMenu _nodeMenu;
-	
+	private List<NANode> _nodes = new List<NANode>();
+
 	[Export] public PackedScene[] NodeScenes = new PackedScene[]{};
 }

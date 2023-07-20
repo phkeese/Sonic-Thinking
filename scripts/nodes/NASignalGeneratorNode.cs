@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Godot.Collections;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using SonicThinking.scripts.autoload;
@@ -10,6 +11,23 @@ namespace SonicThinking.scripts.nodes;
 
 public partial class NASignalGeneratorNode : NANode
 {
+    public override Dictionary Serialize()
+    {
+        return new Dictionary()
+        {
+            { "frequency", _frequencyInput.Value },
+            { "volume", _volumeInput.Value },
+            { "waveform", _waveTable.Wave },
+        };
+    }
+
+    public override void Deserialize(Dictionary state)
+    {
+        _frequencyInput.Value = state["frequency"].AsDouble();
+        _volumeInput.Value = state["volume"].AsDouble();
+        _waveTable.Wave = state["waveform"].AsFloat32Array();
+    }
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {

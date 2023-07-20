@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Godot.Collections;
 using NAudio.Wave;
 using SonicThinking.scripts.sample_providers;
 
@@ -7,6 +8,19 @@ namespace SonicThinking.scripts.nodes;
 
 public partial class NACounterNode : NANode
 {
+	public override Dictionary Serialize()
+	{
+		return new Dictionary()
+		{
+			{ "total", _total }
+		};
+	}
+
+	public override void Deserialize(Dictionary state)
+	{
+		_total = state["total"].AsInt32();
+	}
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
