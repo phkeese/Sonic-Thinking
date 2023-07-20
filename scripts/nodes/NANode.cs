@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Godot.Collections;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using SonicThinking.scripts.autoload;
@@ -32,6 +33,23 @@ public enum SignalType : int
 
 public abstract partial class NANode : GraphNode
 {
+	/// <summary>
+	/// Save all state into a variant to be written to disk and later restored.
+	/// </summary>
+	/// <returns>Data for this Node or null if none is to be saved</returns>
+	public Variant? Serialize()
+	{
+		return null;
+	}
+
+	/// <summary>
+	/// Restore internal state from previously serialized data.
+	/// </summary>
+	/// <param name="state">State to be restored.</param>
+	public void Deserialize(Variant state)
+	{
+	}
+
 	/// <summary>
 	/// Get the output at a given slot for this node.
 	/// </summary>

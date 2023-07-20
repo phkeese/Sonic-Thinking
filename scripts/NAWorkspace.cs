@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Diagnostics;
+using Godot.Collections;
 using SonicThinking.scripts.nodes;
 
 public partial class NAWorkspace : GraphEdit
@@ -30,17 +32,79 @@ public partial class NAWorkspace : GraphEdit
 
 		PopupRequest += position =>
 		{
-			_nodeMenu.Position = (Vector2I)position;
+			var screenPos = GetScreenPosition() + position;
+			_nodeMenu.Position = (Vector2I)screenPos;
 			_nodeMenu.Popup();
 		};
 	}
 
+	public Dictionary Serialize()
+	{
+		var nodes = new Array<Dictionary>();
+		foreach (var node in GetTree().GetNodesInGroup("audio_nodes"))
+		{
+			var naNode = node as NANode;
+			Debug.Assert(naNode != null, nameof(naNode) + " != null");
+			
+			var internalState = naNode.Serialize();
+			var nodePosition = naNode.PositionOffset;
+			var state = new Dictionary()
+			{
+				{ "position", nodePosition },
+				{ "name", node.Name},
+				{ "scene_path", node.SceneFilePath}
+			};
+			if (internalState != null)
+			{
+				state["state"] = (Variant)internalState;
+			}
+			nodes.Add(state);
+		}
+
+		return new Dictionary()
+		{
+			{ "nodes", nodes },
+			{ "connections", GetConnectionList() }
+		};
+	}
+
+	public void Deserialize(Dictionary state)
+	{
+		var nodes = state["nodes"].AsGodotArray<Dictionary>();
+		foreach (var nodeState in nodes)
+		{
+			var position = nodeState["position"].AsVector2();
+			var name = nodeState["name"].AsString();
+			var scenePath = nodeState["scene_path"].AsString();
+
+			var scene = GD.Load<PackedScene>(scenePath);
+			var node = scene.Instantiate<NANode>();
+			node.PositionOffset = position;
+			node.Name = name;
+			if (nodeState.TryGetValue("state", out var internalState))
+			{
+				node.Deserialize(internalState);
+			}
+			
+			AddChild(node);
+		}
+
+		var connections = state["connections"].AsGodotArray<Dictionary>();
+		foreach (var connection in connections)
+		{
+			EmitSignal(SignalName.ConnectionRequest, connection["from"], connection["from_port"], connection["to"],
+				connection["to_port"]);
+		}
+	}
+
+	
 	private void OnNodeSpawnRequested(long index)
 	{
-		var position = _nodeMenu.Position;
+		var position = _nodeMenu.Position - GetScreenPosition();
 		var instance = NodeScenes[index].Instantiate<NANode>();
 		AddChild(instance);
 		instance.PositionOffset = position;
+		instance.AddToGroup("audio_nodes");
 	}
 
 	private void OnDisconnectionRequest(StringName fromName, long fromPort, StringName toName, long toPort)

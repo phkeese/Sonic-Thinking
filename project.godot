@@ -22,6 +22,10 @@ config/icon="res://icon.svg"
 SynthGlobals="*res://scripts/autoload/synth_globals.gd"
 Compositor="*res://scripts/autoload/Compositor.cs"
 
+[display]
+
+window/subwindows/embed_subwindows=false
+
 [dotnet]
 
 project/assembly_name="Sonic Thinking"
