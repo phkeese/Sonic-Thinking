@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cuntk4a4wou5j"]
+[gd_scene load_steps=12 format=3 uid="uid://cuntk4a4wou5j"]
 
 [ext_resource type="Script" path="res://scripts/NAWorkspace.cs" id="1_er6ky"]
 [ext_resource type="PackedScene" uid="uid://bvkmrlvvwdkmh" path="res://nodes/na_output_node.tscn" id="1_i8se7"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://3tkhc8ilosf5" path="res://nodes/na_cache_node.tscn" id="8_qgmlw"]
 [ext_resource type="PackedScene" uid="uid://dl0j2j380kmht" path="res://nodes/na_gate_node.tscn" id="9_hwa12"]
 [ext_resource type="PackedScene" uid="uid://crxdq4ugqwmsd" path="res://nodes/na_logger_node.tscn" id="10_7pkg5"]
+[ext_resource type="PackedScene" uid="uid://pnxka36sw8wc" path="res://nodes/na_edge_detector.tscn" id="11_corss"]
 
 [node name="NAWorkspace" type="GraphEdit"]
 anchors_preset = 15
@@ -22,6 +23,6 @@ use_snap = false
 minimap_enabled = false
 arrange_nodes_button_hidden = true
 script = ExtResource("1_er6ky")
-NodeScenes = [ExtResource("2_d67l1"), ExtResource("1_i8se7"), ExtResource("2_1q2g5"), ExtResource("6_0ookn"), ExtResource("7_2pmr6"), ExtResource("4_8m7q3"), ExtResource("8_qgmlw"), ExtResource("9_hwa12"), ExtResource("10_7pkg5")]
+NodeScenes = [ExtResource("2_d67l1"), ExtResource("1_i8se7"), ExtResource("2_1q2g5"), ExtResource("6_0ookn"), ExtResource("7_2pmr6"), ExtResource("4_8m7q3"), ExtResource("8_qgmlw"), ExtResource("9_hwa12"), ExtResource("10_7pkg5"), ExtResource("11_corss")]
 
 [node name="NodeMenu" type="PopupMenu" parent="."]

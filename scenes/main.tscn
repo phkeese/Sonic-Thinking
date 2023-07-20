@@ -51,3 +51,4 @@ item_3/id = 2
 [node name="NAWorkspace" parent="VBoxContainer" instance=ExtResource("8_tl6xe")]
 layout_mode = 2
 size_flags_vertical = 3
+scroll_offset = Vector2(0, -35)
