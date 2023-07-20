@@ -2,6 +2,7 @@ using System;
 using Godot;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
+using SonicThinking.scripts.autoload;
 
 namespace SonicThinking.scripts.nodes;
 
@@ -99,5 +100,7 @@ public abstract partial class NANode : GraphNode
 	protected const int DefaultSampleRate = 41_000;
 	protected const int DefaultChannelCount = 1;
 	public static readonly WaveFormat DefaultWaveFormat = WaveFormat.CreateIeeeFloatWaveFormat(DefaultSampleRate, DefaultChannelCount);
+
+	protected Compositor Compositor => GetNode<Compositor>("/root/Compositor");
 }
 

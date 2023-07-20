@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://de4gdy4xqxyi6"]
+
+[ext_resource type="Script" path="res://scripts/nodes/NACounterNode.cs" id="1_r733y"]
+
+[node name="NACounterNode" type="GraphNode"]
+title = "Counter"
+slot/0/left_enabled = true
+slot/0/left_type = 2
+slot/0/left_color = Color(0.282353, 1, 0, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("1_r733y")
+
+[node name="Display" type="SpinBox" parent="."]
+layout_mode = 2
+max_value = 1000.0
+alignment = 1
+editable = false
+
+[node name="Reset" type="Button" parent="."]
+layout_mode = 2
+text = "Reset"
