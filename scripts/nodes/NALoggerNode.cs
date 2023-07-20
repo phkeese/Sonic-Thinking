@@ -13,14 +13,18 @@ public partial class NALoggerNode : NANode
 		_display = GetNode<WaveDisplay>("Display");
 		_display.Data = new float[(int)(5.0 * NANode.DefaultWaveFormat.SampleRate)];
 
-		var compositor = GetNode<Compositor>("/root/Compositor");
-		compositor.ForceCache += OnRead;
+		Compositor.ForceCache += OnRead;
 		
 		InputChanged += OnInputChanged;
 
 		_period = GetNode<SpinBox>("Period/SpinBox");
 		_period.ValueChanged += ChangePeriod;
 		ChangePeriod(_period.Value);
+	}
+
+	public override void _ExitTree()
+	{
+		Compositor.ForceCache -= OnRead;
 	}
 
 	private void ChangePeriod(double value)

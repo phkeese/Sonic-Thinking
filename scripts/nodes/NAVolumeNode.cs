@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Godot.Collections;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using SonicThinking.scripts.sample_providers;
@@ -41,7 +42,20 @@ public partial class NAVolumeNode : NANode
 		_volumeSlider.Set("value", value);
 		_volumeSpinBox.Set("value", value);
 	}
-	
+
+	public override Dictionary Serialize()
+	{
+		return new Dictionary()
+		{
+			{ "volume", _volumeSlider.Value },
+		};
+	}
+
+	public override void Deserialize(Dictionary state)
+	{
+		_volumeSlider.Value = state["volume"].AsDouble();
+	}
+
 	protected override ISampleProvider GetOutput(int port)
 	{
 		var slot = GetConnectionInputSlot(port);

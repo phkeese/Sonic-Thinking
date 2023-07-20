@@ -28,7 +28,7 @@ public partial class NAOutputNode : NANode
 	public override void _Ready()
 	{
 		_volume = new VolumeSampleProvider(_rebind);
-		GetNode<Compositor>("/root/Compositor").AddOutput(_volume);
+		Compositor.AddOutput(_volume);
 
 		_volume.Volume = (float)(VolumeSlider.Value / 100.0);
 		VolumeSlider.ValueChanged += value => _volume.Volume = (float)(value / 100.0);
@@ -37,7 +37,7 @@ public partial class NAOutputNode : NANode
 
 	public override void _ExitTree()
 	{
-		GetNode<Compositor>("/root/Compositor").RemoveOutput(_volume);
+		Compositor.RemoveOutput(_volume);
 		base._ExitTree();
 	}
 

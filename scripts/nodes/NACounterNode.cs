@@ -42,6 +42,11 @@ public partial class NACounterNode : NANode
 		_display.Value = _total;
 	}
 
+	public override void _ExitTree()
+	{
+		Compositor.ForceCache -= Count;
+	}
+
 	protected override ISampleProvider GetOutput(int port)
 	{
 		throw new NotImplementedException();

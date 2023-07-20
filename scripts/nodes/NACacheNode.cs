@@ -1,3 +1,4 @@
+using Godot.Collections;
 using NAudio.Wave;
 using SonicThinking.scripts.autoload;
 using SonicThinking.scripts.sample_providers;
@@ -9,10 +10,16 @@ public partial class NACacheNode : NANode
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GetNode<Compositor>("/root/Compositor").ForceCache += _cache.Force;
-		GetNode<Compositor>("/root/Compositor").ClearCache += _cache.Clear;
+		Compositor.ForceCache += _cache.Force;
+		Compositor.ClearCache += _cache.Clear;
 
 		InputChanged += (sender, index, input) => _rebinding.Source = input;
+	}
+
+	public override void _ExitTree()
+	{
+		Compositor.ForceCache -= _cache.Force;
+		Compositor.ClearCache -= _cache.Clear;
 	}
 
 	protected override ISampleProvider GetOutput(int port)

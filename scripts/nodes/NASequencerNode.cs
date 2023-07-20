@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Godot.Collections;
 using NAudio.Wave;
 using SonicThinking.scripts.sample_providers;
 
@@ -24,7 +25,7 @@ public partial class NASequencerNode : NANode
 		AddStep();
 	}
 
-	private void AddStep()
+	private SpinBox AddStep()
 	{
 		_removeButton.Disabled = false;
 		
@@ -37,6 +38,8 @@ public partial class NASequencerNode : NANode
 		SetSlotEnabledLeft(slot_index, true);
 		SetSlotColorLeft(slot_index, NANode.SignalColor(SignalType.Frequency));
 		SetSlotTypeLeft(slot_index, (int)SignalType.Frequency);
+
+		return instance;
 	}
 
 	private void RemoveStep()
@@ -78,6 +81,43 @@ public partial class NASequencerNode : NANode
 	private int _sequenceIndex = 0;
 
 	private const int SequenceOutput = 0;
+	public override Dictionary Serialize()
+	{
+		return new Dictionary()
+		{
+			{ "timing", _timingBox.Value },
+			{ "steps", GetSteps() },
+		};
+	}
+
+	private double[] GetSteps()
+	{
+		var steps = new double[GetChildCount()];
+		for (int i = 0; i < GetChildCount(); i++)
+		{
+			steps[i] = (float)GetChild<SpinBox>(i).Value;
+		}
+
+		return steps;
+	}
+
+	public override void Deserialize(Dictionary state)
+	{
+		_timingBox.Value = state["timing"].AsDouble();
+		
+		// Ensure there are enough steps
+		var steps = state["steps"].AsFloat64Array();
+		while (GetChildCount() < steps.Length)
+		{
+			AddStep();
+		}
+
+		for (int i = 0; i < steps.Length; i++)
+		{
+			GetChild<SpinBox>(i).Value = steps[i];
+		}
+	}
+
 	protected override ISampleProvider GetOutput(int port)
 	{
 		var slot = GetConnectionOutputSlot(port);

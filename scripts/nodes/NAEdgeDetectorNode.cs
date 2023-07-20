@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Godot.Collections;
 using NAudio.Wave;
 using SonicThinking.scripts.autoload;
 using SonicThinking.scripts.helpers;
@@ -22,9 +23,14 @@ public partial class NAEdgeDetectorNode : NANode
 
 		InputChanged += OnInputChanged;
 
-		var compositor = GetNode<Compositor>("/root/Compositor");
-		compositor.ForceCache += _cache.Force;
-		compositor.ClearCache += _cache.Clear;
+		Compositor.ForceCache += _cache.Force;
+		Compositor.ClearCache += _cache.Clear;
+	}
+
+	public override void _ExitTree()
+	{
+		Compositor.ForceCache -= _cache.Force;
+		Compositor.ClearCache -= _cache.Clear;
 	}
 
 
@@ -59,6 +65,21 @@ public partial class NAEdgeDetectorNode : NANode
 		_threshold = new PrioritySampleProvider(_constantThreshold);
 		_detector = new EdgeDetectorProvider(_source, _threshold);
 		_cache = new CachingSampleProvider(_detector);
+	}
+
+	public override Dictionary Serialize()
+	{
+		return new Dictionary()
+		{
+			{ "threshold", _thresholdSlider.Value },
+			{ "mode", _modeOptions.Selected },
+		};
+	}
+
+	public override void Deserialize(Dictionary state)
+	{
+		_thresholdSlider.Value = state["threshold"].AsDouble();
+		_modeOptions.Selected = state["mode"].AsInt32();
 	}
 
 	protected override ISampleProvider GetOutput(int port) => _cache;

@@ -50,8 +50,14 @@ public partial class NASignalGeneratorNode : NANode
         InputChanged += OnInputChanged;
 
         // Connect cache to relevant signals
-        GetNode<Compositor>("/root/Compositor").ForceCache += _output.Force;
-        GetNode<Compositor>("/root/Compositor").ClearCache += _output.Clear;
+        Compositor.ForceCache += _output.Force;
+        Compositor.ClearCache += _output.Clear;
+    }
+
+    public override void _ExitTree()
+    {
+        Compositor.ForceCache -= _output.Force;
+        Compositor.ClearCache -= _output.Clear;
     }
 
     private void OnInputChanged(NANode sender, int portIndex, ISampleProvider input)
