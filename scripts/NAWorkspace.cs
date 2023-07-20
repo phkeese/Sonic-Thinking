@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Godot.Collections;
 using SonicThinking.scripts.nodes;
+using Array = Godot.Collections.Array;
 
 public partial class NAWorkspace : GraphEdit
 {
@@ -70,11 +71,14 @@ public partial class NAWorkspace : GraphEdit
 			
 			var internalState = naNode.Serialize();
 			var nodePosition = naNode.PositionOffset;
+			var guid = naNode.Guid;
+			
 			var state = new Dictionary()
 			{
 				{ "position", nodePosition },
 				{ "name", node.Name},
-				{ "scene_path", node.SceneFilePath}
+				{ "scene_path", node.SceneFilePath},
+				{"guid", guid.ToString()},
 			};
 			if (internalState != null)
 			{
@@ -86,8 +90,42 @@ public partial class NAWorkspace : GraphEdit
 		return new Dictionary()
 		{
 			{ "nodes", nodes },
-			{ "connections", GetConnectionList() }
+			{ "connections", GetStableConnections() }
 		};
+	}
+
+	private Array GetStableConnections()
+	{
+		var connections = new Array();
+		foreach (var connection in GetConnectionList())
+		{
+			var from = GetNode<NANode>(connection["from"].AsString());
+			var to = GetNode<NANode>(connection["to"].AsString());
+
+			var dict = new Dictionary()
+			{
+				{ "from", from.Guid.ToString() },
+				{ "to", to.Guid.ToString() },
+				{ "from_port", connection["from_port"] },
+				{ "to_port", connection["to_port"] },
+			};
+			connections.Add(dict);
+		}
+
+		return connections;
+	}
+
+	private NANode GetStableNode(Guid guid)
+	{
+		foreach (var node in GetChildren())
+		{
+			if (node is NANode naNode && naNode.Guid == guid)
+			{
+				return naNode;
+			}
+		}
+
+		return null;
 	}
 
 	public void Deserialize(Dictionary state)
@@ -98,11 +136,14 @@ public partial class NAWorkspace : GraphEdit
 			var position = nodeState["position"].AsVector2();
 			var name = nodeState["name"].AsString();
 			var scenePath = nodeState["scene_path"].AsString();
+			var guid = Guid.Parse(nodeState["guid"].AsString());
 
 			var scene = GD.Load<PackedScene>(scenePath);
 			var node = scene.Instantiate<NANode>();
 			node.PositionOffset = position;
 			node.Name = name;
+			node.Guid = guid;
+			
 			AddChild(node);
 			_nodes.Add(node);
 			
@@ -115,7 +156,10 @@ public partial class NAWorkspace : GraphEdit
 		var connections = state["connections"].AsGodotArray<Dictionary>();
 		foreach (var connection in connections)
 		{
-			EmitSignal(SignalName.ConnectionRequest, connection["from"], connection["from_port"], connection["to"],
+			var from = GetStableNode(Guid.Parse(connection["from"].AsString()));
+			var to = GetStableNode(Guid.Parse(connection["to"].AsString()));
+
+			EmitSignal(SignalName.ConnectionRequest, from.Name, connection["from_port"], to.Name,
 				connection["to_port"]);
 		}
 	}
@@ -125,6 +169,7 @@ public partial class NAWorkspace : GraphEdit
 	{
 		var position = _nodeMenu.Position - GetScreenPosition();
 		var instance = NodeScenes[index].Instantiate<NANode>();
+
 		AddChild(instance);
 		instance.PositionOffset = position;
 		_nodes.Add(instance);

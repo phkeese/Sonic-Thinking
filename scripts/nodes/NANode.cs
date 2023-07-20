@@ -34,6 +34,11 @@ public enum SignalType : int
 public abstract partial class NANode : GraphNode
 {
 	/// <summary>
+	/// GUID for stable save/load.
+	/// </summary>
+	public Guid Guid = Guid.NewGuid();
+
+	/// <summary>
 	/// Save all state into a variant to be written to disk and later restored.
 	/// </summary>
 	/// <returns>Data for this Node or null if none is to be saved</returns>

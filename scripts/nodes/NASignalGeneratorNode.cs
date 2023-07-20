@@ -18,6 +18,7 @@ public partial class NASignalGeneratorNode : NANode
             { "frequency", _frequencyInput.Value },
             { "volume", _volumeInput.Value },
             { "waveform", _waveTable.Wave },
+            { "preset", _waveSelect.Selected},
         };
     }
 
@@ -25,7 +26,8 @@ public partial class NASignalGeneratorNode : NANode
     {
         _frequencyInput.Value = state["frequency"].AsDouble();
         _volumeInput.Value = state["volume"].AsDouble();
-        _waveTable.Wave = state["waveform"].AsFloat32Array();
+        _waveSelect.Selected = state["preset"].AsInt32();
+        state["waveform"].AsFloat32Array().CopyTo((Span<float>)_waveTable.Wave);
     }
 
     // Called when the node enters the scene tree for the first time.
