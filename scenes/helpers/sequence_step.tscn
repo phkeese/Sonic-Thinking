@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0itj633mx64k"]
+
+[ext_resource type="Script" path="res://scripts/helpers/SequenceStep.cs" id="1_ewmex"]
+[ext_resource type="PackedScene" uid="uid://be6mgh1g85nuf" path="res://scenes/helpers/frequency_edit.tscn" id="2_f43ci"]
+[ext_resource type="Texture2D" uid="uid://gedal3tspk3a" path="res://assets/ui/grey_tickWhite.png" id="3_411as"]
+
+[node name="SequenceStep" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 51.0
+grow_horizontal = 2
+size_flags_vertical = 8
+script = ExtResource("1_ewmex")
+Editable = true
+MinValue = 0.01
+MaxValue = 7040.0
+Value = 440.0
+
+[node name="Edit" parent="." instance=ExtResource("2_f43ci")]
+layout_mode = 2
+Label = "Value"
+Suffix = ""
+TickCount = 11
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="LED" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("3_411as")
+stretch_mode = 5

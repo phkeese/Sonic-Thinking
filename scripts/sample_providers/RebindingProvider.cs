@@ -22,7 +22,7 @@ public class RebindingProvider : ISampleProvider
                 // Fill buffer with zeros
                 for (int i = offset; i < offset + count; i++)
                 {
-                    buffer[i] = 0.0f;
+                    buffer[i] = DefaultValue;
                 }
 
                 return count;
@@ -34,6 +34,8 @@ public class RebindingProvider : ISampleProvider
         }
     }
 
+    public float DefaultValue = 0f;
+    
     public WaveFormat WaveFormat { get; } = NANode.DefaultWaveFormat;
 
     public ISampleProvider Source

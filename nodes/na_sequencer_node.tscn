@@ -1,21 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://bx7u3jgehxwax"]
+[gd_scene load_steps=6 format=3 uid="uid://bx7u3jgehxwax"]
 
 [ext_resource type="Script" path="res://scripts/nodes/NASequencerNode.cs" id="1_b5204"]
-[ext_resource type="Texture2D" uid="uid://c0fbi38r8m76n" path="res://assets/ui/red_circle.png" id="2_kxmnx"]
 [ext_resource type="Texture2D" uid="uid://n6yx7s24dt8t" path="res://assets/ui/plus.png" id="4_1wju0"]
+[ext_resource type="Texture2D" uid="uid://s4e36otd3cxd" path="res://assets/ui/forward.png" id="4_xub8r"]
 [ext_resource type="Texture2D" uid="uid://c4dnj7n5vhkw1" path="res://assets/ui/minus.png" id="5_j2h6c"]
+[ext_resource type="Texture2D" uid="uid://dd8crw8rntopv" path="res://assets/ui/backward.png" id="5_qymvp"]
 
 [node name="NASequencerNode" type="GraphNode"]
 offset_right = 301.0
-offset_bottom = 157.0
+offset_bottom = 152.0
 title = "Sequencer Node"
 slot/0/left_enabled = true
-slot/0/left_type = 2
-slot/0/left_color = Color(0.282353, 1, 0, 1)
+slot/0/left_type = 4
+slot/0/left_color = Color(0.632053, 0.342461, 1, 1)
 slot/0/left_icon = null
 slot/0/right_enabled = true
-slot/0/right_type = 3
-slot/0/right_color = Color(1, 1, 0, 1)
+slot/0/right_type = 4
+slot/0/right_color = Color(0.632053, 0.342461, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
 slot/1/left_enabled = true
@@ -45,25 +46,27 @@ slot/3/right_type = 0
 slot/3/right_color = Color(1, 1, 1, 1)
 slot/3/right_icon = null
 slot/3/draw_stylebox = true
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
 script = ExtResource("1_b5204")
 
-[node name="Trigger" type="HBoxContainer" parent="." groups=["internal"]]
+[node name="Index" type="HBoxContainer" parent="." groups=["internal"]]
 layout_mode = 2
+size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="Trigger"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Trig"
-
-[node name="Manual" type="Button" parent="Trigger"]
+[node name="Label" type="Label" parent="Index"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
-text = "Test"
-icon = ExtResource("2_kxmnx")
-expand_icon = true
+text = "Index"
 
-[node name="Label2" type="Label" parent="Trigger"]
+[node name="Label2" type="Label" parent="Index"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Out"
@@ -71,25 +74,59 @@ horizontal_alignment = 2
 
 [node name="Timing" type="HBoxContainer" parent="." groups=["internal"]]
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="Timing"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "Interval"
 
-[node name="SpinBox" type="SpinBox" parent="Timing"]
+[node name="TimingBox" type="SpinBox" parent="Timing"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 max_value = 30.0
 step = 0.1
 value = 1.0
 alignment = 1
 suffix = "s"
 
-[node name="Buttons" type="HBoxContainer" parent="." groups=["internal"]]
+[node name="Limits" type="HBoxContainer" parent="." groups=["internal"]]
 layout_mode = 2
 
+[node name="Low" type="SpinBox" parent="Limits"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.01
+allow_greater = true
+allow_lesser = true
+alignment = 1
+
+[node name="Label" type="Label" parent="Limits"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "to"
+horizontal_alignment = 1
+
+[node name="High" type="SpinBox" parent="Limits"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.01
+value = 1.0
+allow_greater = true
+allow_lesser = true
+alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="." groups=["internal"]]
+layout_mode = 2
+size_flags_vertical = 0
+
 [node name="Add" type="Button" parent="Buttons"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Add"
@@ -97,6 +134,7 @@ icon = ExtResource("4_1wju0")
 expand_icon = true
 
 [node name="Remove" type="Button" parent="Buttons"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
@@ -105,8 +143,26 @@ icon = ExtResource("5_j2h6c")
 icon_alignment = 2
 expand_icon = true
 
+[node name="Back" type="Button" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("5_qymvp")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Forward" type="Button" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("4_xub8r")
+icon_alignment = 1
+expand_icon = true
+
 [node name="HSeparator" type="HSeparator" parent="." groups=["internal"]]
 layout_mode = 2
 
 [connection signal="pressed" from="Buttons/Add" to="." method="AddStep"]
 [connection signal="pressed" from="Buttons/Remove" to="." method="RemoveStep"]
+[connection signal="pressed" from="Buttons/Back" to="." method="Skip" binds= [-1]]
+[connection signal="pressed" from="Buttons/Forward" to="." method="Skip" binds= [1]]

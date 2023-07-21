@@ -82,8 +82,7 @@ public abstract partial class NANode : GraphNode
 	/// <param name="toPort">Slot the connection was made to.</param>
 	public void DisconnectInput(NANode from, int fromPort, int toPort)
 	{
-		var slot = GetConnectionInputSlot(toPort);
-		InputChanged?.Invoke(this, slot, null);
+		InputChanged?.Invoke(this, toPort, null);
 	}
 	
 	/// <summary>
