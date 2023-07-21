@@ -2,6 +2,7 @@ using System;
 using Godot;
 using Godot.Collections;
 using NAudio.Wave;
+using SonicThinking.scripts.helpers;
 using SonicThinking.scripts.sample_providers;
 
 namespace SonicThinking.scripts.nodes;
@@ -25,12 +26,12 @@ public partial class NASequencerNode : NANode
 		AddStep();
 	}
 
-	private SpinBox AddStep()
+	private SliderInput AddStep()
 	{
 		_removeButton.Disabled = false;
 		
 		var FrequencyEdit = GD.Load<PackedScene>("res://scenes/helpers/frequency_edit.tscn");
-		var instance = FrequencyEdit.Instantiate<SpinBox>();
+		var instance = FrequencyEdit.Instantiate<SliderInput>();
 
 		int slot_index = GetChildCount(true);
 		AddChild(instance);
@@ -65,7 +66,7 @@ public partial class NASequencerNode : NANode
 		{
 			int sequenceLength = GetChildCount();
 			_sequenceIndex = (_sequenceIndex + 1) % sequenceLength;
-			var input = GetChild<SpinBox>(_sequenceIndex);
+			var input = GetChild<SliderInput>(_sequenceIndex);
 			_constant.Value = (float)input.Value;
 			_nextTrigger = _time + _timingBox.Value;
 		}
@@ -95,7 +96,7 @@ public partial class NASequencerNode : NANode
 		var steps = new double[GetChildCount()];
 		for (int i = 0; i < GetChildCount(); i++)
 		{
-			steps[i] = (float)GetChild<SpinBox>(i).Value;
+			steps[i] = (float)GetChild<SliderInput>(i).Value;
 		}
 
 		return steps;
@@ -114,7 +115,7 @@ public partial class NASequencerNode : NANode
 
 		for (int i = 0; i < steps.Length; i++)
 		{
-			GetChild<SpinBox>(i).Value = steps[i];
+			GetChild<SliderInput>(i).Value = steps[i];
 		}
 	}
 

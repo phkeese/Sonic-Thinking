@@ -1,11 +1,32 @@
-[gd_scene format=3 uid="uid://be6mgh1g85nuf"]
+[gd_scene load_steps=2 format=3 uid="uid://be6mgh1g85nuf"]
 
-[node name="FrequencyEdit" type="SpinBox"]
-offset_right = 83.0625
-offset_bottom = 31.0
-size_flags_horizontal = 3
-max_value = 20000.0
-step = 0.1
+[ext_resource type="PackedScene" uid="uid://behciv7n2c01g" path="res://scenes/helpers/slider_input.tscn" id="1_u5ybw"]
+
+[node name="FrequencyEdit" instance=ExtResource("1_u5ybw")]
+Label = "Pitch"
+MaxValue = 7040.0
+MinValue = 0.01
+Value = 440.0
+Step = 0.01
+Suffix = "Hz"
+TickCount = 10
+TicksOnBorders = true
+
+[node name="Label" parent="TopRow" index="0"]
+text = "Pitch"
+
+[node name="SpinBox" parent="TopRow" index="1"]
+min_value = 0.01
+max_value = 7040.0
+step = 0.01
+page = 10.0
 value = 440.0
-alignment = 1
 suffix = "Hz"
+
+[node name="Slider" parent="." index="1"]
+min_value = 0.01
+max_value = 7040.0
+step = 0.01
+value = 440.0
+tick_count = 10
+ticks_on_borders = true

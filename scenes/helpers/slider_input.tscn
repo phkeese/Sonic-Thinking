@@ -12,6 +12,7 @@ script = ExtResource("1_t1am2")
 Label = "Value:"
 MaxValue = 100.0
 Step = 1.0
+Editable = true
 
 [node name="TopRow" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -19,15 +20,17 @@ size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="TopRow"]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 text = "Value:"
 
 [node name="SpinBox" type="SpinBox" parent="TopRow"]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 alignment = 1
 select_all_on_focus = true
 
 [node name="Slider" type="HSlider" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+scrollable = false

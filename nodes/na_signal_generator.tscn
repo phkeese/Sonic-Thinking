@@ -50,18 +50,14 @@ script = ExtResource("1_bmuw5")
 [node name="Frequency" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Frequency"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Frq"
-
 [node name="Edit" parent="Frequency" instance=ExtResource("2_x1n5f")]
 layout_mode = 2
 size_flags_stretch_ratio = 2.0
 
-[node name="Label2" type="Label" parent="Frequency"]
+[node name="Label" type="Label" parent="Frequency"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
+size_flags_stretch_ratio = 0.5
 text = "Out"
 horizontal_alignment = 2
 
@@ -72,7 +68,6 @@ Value = 70.0
 Suffix = "%"
 TickCount = 11
 TicksOnBorders = true
-Editable = true
 
 [node name="Waveform" type="HBoxContainer" parent="."]
 layout_mode = 2

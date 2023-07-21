@@ -64,7 +64,6 @@ Step = 0.01
 Suffix = "V"
 TickCount = 5
 TicksOnBorders = true
-Editable = true
 
 [node name="Mode" type="HBoxContainer" parent="."]
 layout_mode = 2

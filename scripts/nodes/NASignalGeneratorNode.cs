@@ -33,7 +33,7 @@ public partial class NASignalGeneratorNode : NANode
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _frequencyInput = GetNode<SpinBox>("Frequency/Edit");
+        _frequencyInput = GetNode<SliderInput>("Frequency/Edit");
         _frequencyInput.ValueChanged += frequency => _constantFrequency.Value = (float)frequency;
         _constantFrequency.Value = (float)_frequencyInput.Value;
 
@@ -118,7 +118,7 @@ public partial class NASignalGeneratorNode : NANode
     private const int FrequencyPort = 0;
     private const int VolumePort = 1;
 
-    private SpinBox _frequencyInput;
+    private SliderInput _frequencyInput;
     private readonly ConstantSampleProvider _constantFrequency = new ConstantSampleProvider();
     private readonly PrioritySampleProvider _frequency;
 
