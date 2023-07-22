@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3 uid="uid://ny3ffukf4jmv"]
+
+[ext_resource type="Script" path="res://scripts/nodes/NABinaryMathNode.cs" id="1_vtjha"]
+
+[node name="BinaryMathNode" type="GraphNode"]
+title = "Binary Math Node"
+slot/0/left_enabled = true
+slot/0/left_type = 4
+slot/0/left_color = Color(0.632053, 0.342461, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 4
+slot/0/right_color = Color(0.632053, 0.342461, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = true
+slot/1/left_type = 4
+slot/1/left_color = Color(0.632053, 0.342461, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+script = ExtResource("1_vtjha")
+
+[node name="Top" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Left"
+
+[node name="Label2" type="Label" parent="Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Result"
+horizontal_alignment = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Right"
+
+[node name="Operation" type="OptionButton" parent="."]
+layout_mode = 2
+alignment = 1
+item_count = 5
+selected = 0
+popup/item_0/text = "Add"
+popup/item_0/id = 0
+popup/item_1/text = "Subtract"
+popup/item_1/id = 1
+popup/item_2/text = "Multiply"
+popup/item_2/id = 2
+popup/item_3/text = "Divide"
+popup/item_3/id = 3
+popup/item_4/text = "Modulo"
+popup/item_4/id = 4
