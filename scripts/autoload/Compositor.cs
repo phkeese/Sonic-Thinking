@@ -19,6 +19,7 @@ public partial class Compositor : Node
 		_notify = new ReadNotifyProvider(_mixer);
 		_notify.OnRead += AfterRead;
 		
+		_waveOut.DesiredLatency = 80;
 		_waveOut.Init(_notify);
 		_waveOut.Play();
 	}
