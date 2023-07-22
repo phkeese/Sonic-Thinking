@@ -98,6 +98,7 @@ public partial class NASequencerNode : NANode
         _removeButton.Disabled = GetChildCount() == 1;
         
         SetLimits();
+        step.Value = _lowBox.Value;
     }
 
     private void RemoveStep()
