@@ -12,47 +12,50 @@ public partial class NACounterNode : NANode
 	{
 		return new Dictionary()
 		{
-			{ "total", _total }
+			{ "total", _counter.Count }
 		};
 	}
 
 	public override void Deserialize(Dictionary state)
 	{
-		_total = state["total"].AsInt32();
+		_counter.Count = state["total"].AsInt32();
 	}
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_display = GetNode<SpinBox>("Display");
-		GetNode<Button>("Reset").Pressed += () => _total = 0;
-		InputChanged += (sender, index, input) => _rebinding.Source = input;
-		Compositor.ForceCache += Count;
-	}
+		_display.ValueChanged += value => _counter.Count = (int)value;
 
-	private void Count(int offset, int count)
-	{
-		var buffer = new float[offset + count];
-		count = _rebinding.Read(buffer, offset, count);
-		for (int i = 0; i < count; i++)
+		var reset = GetNode<Button>("Reset");
+		reset.Pressed += () => _counter.Count = 0;
+		InputChanged += (sender, index, input) =>
 		{
-			if (buffer[offset + i] > 0.5) _total++;
-		}
-
-		_display.Value = _total;
+			_rebinding.Source = input;
+			_display.Editable = input == null;
+		};
+		
+		Compositor.ForceCache += _cache.Force;
+		Compositor.ClearCache += _cache.Clear;
+		_counter.Changed += count => _display.Value = count;
 	}
-
+	
 	public override void _ExitTree()
 	{
-		Compositor.ForceCache -= Count;
+		Compositor.ForceCache -= _cache.Force;
+		Compositor.ClearCache -= _cache.Clear;
 	}
 
-	protected override ISampleProvider GetOutput(int port)
-	{
-		throw new NotImplementedException();
-	}
+	protected override ISampleProvider GetOutput(int port) => _cache;
 
 	private SpinBox _display;
 	private readonly RebindingProvider _rebinding = new RebindingProvider();
-	private int _total = 0;
+	private readonly CountingSampleProvider _counter;
+	private readonly CachingSampleProvider _cache;
+
+	public NACounterNode()
+	{
+		_counter = new CountingSampleProvider(_rebinding);
+		_cache = new CachingSampleProvider(_counter);
+	}
 }
