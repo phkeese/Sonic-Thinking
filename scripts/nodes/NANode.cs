@@ -115,6 +115,21 @@ public abstract partial class NANode : GraphNode
 	}
 
 	/// <summary>
+	/// Converts "voltage" (ranges from 0 to ~16 for human hearing) to frequency.
+	/// Uses 1Volt/Octave and a bias to allow for 0Hz
+	/// </summary>
+	/// <param name="voltage">Value to convert to frequency.</param>
+	/// <returns>Frequency in Hz.</returns>
+	public static float VoltageToFrequency(float voltage) => 110 * Mathf.Pow(2, voltage - 3) - 1;
+	
+	/// <summary>
+	/// Converts Frequency into voltage, using modified 1Volt/Octave.
+	/// </summary>
+	/// <param name="frequency">Frequency to convert.</param>
+	/// <returns>Voltage.</returns>
+	public static float FrequencyToVoltage(float frequency) => Mathf.Log((frequency + 1) / 110) / Mathf.Log(2) + 3;
+
+	/// <summary>
 	/// Fired when an input connection is made or broken.
 	/// </summary>
 	protected InputChangedHandler InputChanged;

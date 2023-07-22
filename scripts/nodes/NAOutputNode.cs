@@ -30,8 +30,8 @@ public partial class NAOutputNode : NANode
 		_volume = new VolumeSampleProvider(_rebind);
 		Compositor.AddOutput(_volume);
 
-		_volume.Volume = (float)(VolumeSlider.Value / 100.0);
-		VolumeSlider.ValueChanged += value => _volume.Volume = (float)(value / 100.0);
+		_volume.Volume = (float)(VolumeSlider.Value);
+		VolumeSlider.ValueChanged += value => _volume.Volume = (float)(value);
 		InputChanged += OnInputChanged;
 	}
 

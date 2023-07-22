@@ -34,8 +34,8 @@ public partial class NASignalGeneratorNode : NANode
     public override void _Ready()
     {
         _frequencyInput = GetNode<SliderInput>("Frequency/Edit");
-        _frequencyInput.ValueChanged += frequency => _constantFrequency.Value = (float)frequency;
-        _constantFrequency.Value = (float)_frequencyInput.Value;
+        _frequencyInput.ValueChanged += frequency => _constantFrequency.Value = FrequencyToVoltage((float)frequency);
+        _constantFrequency.Value = FrequencyToVoltage((float)_frequencyInput.Value);
 
         _volumeInput = GetNode<SliderInput>("Volume");
         _volumeInput.ValueChanged += volume => _constantVolume.Value = (float)volume;
