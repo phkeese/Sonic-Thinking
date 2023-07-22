@@ -64,8 +64,8 @@ horizontal_alignment = 2
 [node name="Volume" parent="." instance=ExtResource("3_8sop7")]
 layout_mode = 2
 Label = "Volume:"
-Value = 70.0
-Suffix = "%"
+Value = 1.0
+Suffix = "/ 1"
 TickCount = 11
 TicksOnBorders = true
 

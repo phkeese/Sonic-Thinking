@@ -38,9 +38,9 @@ public partial class NASignalGeneratorNode : NANode
         _constantFrequency.Value = (float)_frequencyInput.Value;
 
         _volumeInput = GetNode<SliderInput>("Volume");
-        _volumeInput.ValueChanged += volume => _constantVolume.Value = (float)volume / 100;
+        _volumeInput.ValueChanged += volume => _constantVolume.Value = (float)volume;
 
-        _constantVolume.Value = (float)_volumeInput.Value / 100;
+        _constantVolume.Value = (float)_volumeInput.Value;
 
         _waveTable = GetNode<WaveTable>("WaveTable");
         _generator.WaveTable = _waveTable.Wave;
