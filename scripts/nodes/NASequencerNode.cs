@@ -10,154 +10,176 @@ namespace SonicThinking.scripts.nodes;
 
 public partial class NASequencerNode : NANode
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		_timingBox = GetNode<SpinBox>("%TimingBox");
-		_removeButton = GetNode<Button>("%Remove");
-		
-		foreach (var child in GetChildren())
-		{
-			if (child.IsInGroup("internal"))
-			{
-				RemoveChild(child);
-				AddChild(child, false, InternalMode.Front);
-			}
-		}
-		AddStep();
-		
-		InputChanged += OnInputChanged;
-		Compositor.ForceCache += _cache.Force;
-		Compositor.ClearCache += _cache.Clear;
-		
-		_timingBox.ValueChanged += value => _constantIndex.Value = (float)value;
-		_constantIndex.Value = (float)_timingBox.Value;
-	}
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        _removeButton = GetNode<Button>("%Remove");
+        _indexBox = GetNode<SpinBox>("%IndexBox");
 
-	public override void _ExitTree()
-	{
-		base._ExitTree();
-		Compositor.ForceCache -= _cache.Force;
-		Compositor.ClearCache -= _cache.Clear;
-	}
+        foreach (var child in GetChildren())
+        {
+            if (child.IsInGroup("internal"))
+            {
+                RemoveChild(child);
+                AddChild(child, false, InternalMode.Front);
+            }
+        }
 
-	private void OnInputChanged(NANode sender, int portIndex, ISampleProvider input)
-	{
-		if (portIndex == 0)
-		{
-			_index.Source = input;
-		}
-		else if(portIndex == 1)
-		{
-			GD.Print($"Set interval input to {input}");
-		}
-		else
-		{
-			var stepIndex = portIndex - 2;
-			_steps[stepIndex].Override = input;
-		}
-	}
+        AddStep();
 
-	public void Skip(int steps)
-	{
-		GD.Print($"Skipping {steps} steps.");
-	}
+        InputChanged += OnInputChanged;
+        Compositor.ForceCache += _cache.Force;
+        Compositor.ClearCache += _cache.Clear;
 
-	private void AddStep()
-	{
-		
-		var sequenceStepScene = GD.Load<PackedScene>("res://scenes/helpers/sequence_step.tscn");
-		var step = sequenceStepScene.Instantiate<SequenceStep>();
+        _indexBox.ValueChanged += value => _counter.Count = (int)value;
+        _counter.Changed += count => _indexBox.Value = count;
+        _counter.Count = (int)_indexBox.Value;
+    }
 
-		_steps.Add(step);
-		_mux.Add(step);
-		
-		var slotIndex = GetChildCount(true);
-		AddChild(step);
-		
-		SetSlotEnabledLeft(slotIndex, true);
-		SetSlotColorLeft(slotIndex, SignalColor(SignalType.Any));
-		SetSlotTypeLeft(slotIndex, (int)SignalType.Any);
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+        Compositor.ForceCache -= _cache.Force;
+        Compositor.ClearCache -= _cache.Clear;
+    }
 
-		_removeButton.Disabled = GetChildCount() == 1;
-	}
+    private void OnInputChanged(NANode sender, int portIndex, ISampleProvider input)
+    {
+        if (portIndex == 0)
+        {
+            _indexPrio.Source = input;
+            _indexBox.Editable = input == null;
+        }
+        else if (portIndex == 1)
+        {
+            _triggerInput.Source = input;
+        }
+        else
+        {
+            var stepIndex = portIndex - 2;
+            _steps[stepIndex].Override = input;
+        }
+    }
 
-	private void RemoveStep()
-	{
-		if (GetChildCount() == 0)
-			return;
-		var step = GetChild<SequenceStep>(GetChildCount() - 1);
-		RemoveChild(step);
-		step.QueueFree();
+    public void Skip(int steps)
+    {
+        GD.Print($"Skipping {steps} steps.");
+    }
 
-		_steps.Remove(step);
-		_mux.Remove(step);
+    private void AddStep()
+    {
+        var sequenceStepScene = GD.Load<PackedScene>("res://scenes/helpers/sequence_step.tscn");
+        var step = sequenceStepScene.Instantiate<SequenceStep>();
 
+        _steps.Add(step);
+        _mux.Add(step);
 
-		if (GetChildCount() == 1)
-		{
-			_removeButton.Disabled = true;
-		}
-	}
+        var slotIndex = GetChildCount(true);
+        AddChild(step);
+
+        SetSlotEnabledLeft(slotIndex, true);
+        SetSlotColorLeft(slotIndex, SignalColor(SignalType.Any));
+        SetSlotTypeLeft(slotIndex, (int)SignalType.Any);
+
+        _removeButton.Disabled = GetChildCount() == 1;
+    }
+
+    private void RemoveStep()
+    {
+        if (GetChildCount() == 0)
+            return;
+        var step = GetChild<SequenceStep>(GetChildCount() - 1);
+        RemoveChild(step);
+        step.QueueFree();
+
+        _steps.Remove(step);
+        _mux.Remove(step);
 
 
-	public NASequencerNode()
-	{
-		_index = new PrioritySampleProvider(_constantIndex);
-		_mux = new RingMuxSampleProvider(_index);
-		_cache = new CachingSampleProvider(_mux);
-	}
+        if (GetChildCount() == 1)
+        {
+            _removeButton.Disabled = true;
+        }
+    }
 
-	private const int SequenceOutput = 0;
-	public override Dictionary Serialize()
-	{
-		return new Dictionary()
-		{
-			{ "timing", _timingBox.Value },
-			{ "steps", GetStepValues() },
-		};
-	}
 
-	private double[] GetStepValues()
-	{
-		var steps = new double[GetChildCount()];
-		for (int i = 0; i < GetChildCount(); i++)
-		{
-			steps[i] = (float)GetChild(i).Get("Value");
-		}
+    public NASequencerNode()
+    {
+        var half = new ConstantSampleProvider
+        {
+            Value = 0.5f
+        };
+        var triggerEdge = new EdgeDetectorProvider(source: _triggerInput, threshold: half);
+        _counter = new CountingSampleProvider(trigger: triggerEdge);
+        _indexPrio = new PrioritySampleProvider(fallback: _counter);
 
-		return steps;
-	}
+        _mux = new RingMuxSampleProvider(index: _indexPrio);
+        _cache = new CachingSampleProvider(source: _mux);
+    }
 
-	public override void Deserialize(Dictionary state)
-	{
-		_timingBox.Value = state["timing"].AsDouble();
-		
-		// Ensure there are enough steps
-		var stepValues = state["steps"].AsFloat64Array();
-		while (GetChildCount() < stepValues.Length)
-		{
-			AddStep();
-		}
+    private const int SequenceOutput = 0;
 
-		for (int i = 0; i < stepValues.Length; i++)
-		{
-			_steps[i].Value = stepValues[i];
-		}
-	}
+    public override Dictionary Serialize()
+    {
+        return new Dictionary()
+        {
+            { "index", _indexBox.Value },
+            { "steps", GetStepValues() },
+        };
+    }
 
-	protected override ISampleProvider GetOutput(int port) => _cache;
+    private double[] GetStepValues()
+    {
+        var steps = new double[GetChildCount()];
+        for (int i = 0; i < GetChildCount(); i++)
+        {
+            steps[i] = (float)GetChild(i).Get("Value");
+        }
 
-	private readonly PrioritySampleProvider _index;
-	private readonly ConstantSampleProvider _constantIndex = new ConstantSampleProvider();
-	private readonly RingMuxSampleProvider _mux;
-	private readonly CachingSampleProvider _cache;
+        return steps;
+    }
 
-	private readonly List<SequenceStep> _steps = new List<SequenceStep>();
-	private SpinBox _timingBox;
-	private Button _removeButton;
-	
-	private double _time = 0.0;
-	private double _nextTrigger = 0.0;
-	private int _sequenceIndex = 0;
+    public override void Deserialize(Dictionary state)
+    {
+        _indexBox.Value = state["index"].AsDouble();
+
+        // Ensure there are enough steps
+        var stepValues = state["steps"].AsFloat64Array();
+        while (GetChildCount() < stepValues.Length)
+        {
+            AddStep();
+        }
+
+        for (int i = 0; i < stepValues.Length; i++)
+        {
+            _steps[i].Value = stepValues[i];
+        }
+    }
+
+    protected override ISampleProvider GetOutput(int port) => _cache;
+
+    /*
+     * Index Box-------------------------v
+     * Trigger Input--->| Edge |--->| Counter |--->| Index Prio (fallback) |
+     */
+    private readonly RebindingProvider _triggerInput = new RebindingProvider();
+    private readonly CountingSampleProvider _counter;
+
+    // Index selection
+    /*
+     * | Index Counter |--->| Index Prio (fallback) |-->| Mux |
+     * Index Input--------->| (override)            |
+     */
+    private readonly PrioritySampleProvider _indexPrio;
+    private readonly ConstantSampleProvider _constantIndex = new ConstantSampleProvider();
+    private readonly RingMuxSampleProvider _mux;
+    private readonly CachingSampleProvider _cache;
+
+    private readonly List<SequenceStep> _steps = new List<SequenceStep>();
+    private Button _removeButton;
+    private SpinBox _indexBox;
+
+    private double _time = 0.0;
+    private double _nextTrigger = 0.0;
+    private int _sequenceIndex = 0;
 }
