@@ -10,8 +10,9 @@ grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_t1am2")
 Label = "Value:"
-MaxValue = 100.0
-Step = 1.0
+MaxValue = 1.0
+Value = 0.5
+Step = 0.01
 Editable = true
 
 [node name="TopRow" type="HBoxContainer" parent="."]
@@ -27,10 +28,16 @@ text = "Value:"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
+max_value = 1.0
+step = 0.01
+value = 0.5
 alignment = 1
 select_all_on_focus = true
 
 [node name="Slider" type="HSlider" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 0.5
 scrollable = false

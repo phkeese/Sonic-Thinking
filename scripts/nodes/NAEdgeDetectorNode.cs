@@ -1,11 +1,11 @@
-using Godot;
 using System;
+using Godot;
 using Godot.Collections;
 using NAudio.Wave;
-using SonicThinking.scripts.autoload;
 using SonicThinking.scripts.helpers;
-using SonicThinking.scripts.nodes;
 using SonicThinking.scripts.sample_providers;
+
+namespace SonicThinking.scripts.nodes;
 
 public partial class NAEdgeDetectorNode : NANode
 {
