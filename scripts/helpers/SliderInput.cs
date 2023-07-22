@@ -80,6 +80,29 @@ public partial class SliderInput : Control
 	}
 
 	[Export]
+	public bool AllowGreater
+	{
+		get => SBox.AllowGreater;
+		set
+		{
+			if (SBox != null) SBox.AllowGreater = value;
+			if (Slider!= null) Slider.AllowGreater = value;
+		}
+	}
+	
+	
+	[Export]
+	public bool AllowLesser
+	{
+		get => SBox.AllowLesser;
+		set
+		{
+			if (SBox != null) SBox.AllowLesser = value;
+			if (Slider!= null) Slider.AllowLesser = value;
+		}
+	}
+
+	[Export]
 	public string Suffix
 	{
 		get => SBox.Suffix;
