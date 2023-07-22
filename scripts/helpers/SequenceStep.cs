@@ -67,7 +67,7 @@ public partial class SequenceStep : HBoxContainer, ISampleProvider
     }
 
     [Export]
-    private double MinValue
+    public double MinValue
     {
         get => Edit.MinValue;
         set
@@ -77,7 +77,7 @@ public partial class SequenceStep : HBoxContainer, ISampleProvider
     }
 
     [Export]
-    private double MaxValue
+    public double MaxValue
     {
         get => Edit.MaxValue;
         set
@@ -93,7 +93,7 @@ public partial class SequenceStep : HBoxContainer, ISampleProvider
         get => Edit.Value;
         set
         {
-            if (Engine.IsEditorHint() && Edit != null) Edit.Value = value;
+            if (Edit != null) Edit.Value = value;
         }
     }
 

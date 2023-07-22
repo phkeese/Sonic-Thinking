@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Godot.Collections;
 using NAudio.Wave;
 using SonicThinking.scripts.nodes;
 using SonicThinking.scripts.sample_providers;
@@ -72,4 +73,18 @@ public partial class NABinaryMathNode : NANode, ISampleProvider
 	}
 
 	public WaveFormat WaveFormat => DefaultWaveFormat;
+	
+	
+	public override Dictionary Serialize()
+	{
+		return new Dictionary()
+		{
+			{ "operation", _operationSelect.Selected }
+		};
+	}
+
+	public override void Deserialize(Dictionary state)
+	{
+		_operationSelect.Selected = state["operation"].AsInt32();
+	}
 }

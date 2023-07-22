@@ -15,6 +15,8 @@ public partial class NASequencerNode : NANode
     {
         _removeButton = GetNode<Button>("%Remove");
         _indexBox = GetNode<SpinBox>("%IndexBox");
+        _lowBox = GetNode<SpinBox>("%Low");
+        _highBox = GetNode<SpinBox>("%High");
 
         foreach (var child in GetChildren())
         {
@@ -34,6 +36,18 @@ public partial class NASequencerNode : NANode
         _indexBox.ValueChanged += value => _counter.Count = (int)value;
         _counter.Changed += count => _indexBox.Value = count;
         _counter.Count = (int)_indexBox.Value;
+
+        _lowBox.ValueChanged += value => SetLimits();
+        _highBox.ValueChanged += value => SetLimits();
+    }
+
+    private void SetLimits()
+    {
+        foreach (var step in _steps)
+        {
+            step.MinValue = _lowBox.Value;
+            step.MaxValue = _highBox.Value;
+        }
     }
 
     public override void _ExitTree()
@@ -82,6 +96,8 @@ public partial class NASequencerNode : NANode
         SetSlotTypeLeft(slotIndex, (int)SignalType.Any);
 
         _removeButton.Disabled = GetChildCount() == 1;
+        
+        SetLimits();
     }
 
     private void RemoveStep()
@@ -125,6 +141,8 @@ public partial class NASequencerNode : NANode
         {
             { "index", _indexBox.Value },
             { "steps", GetStepValues() },
+            { "low", _lowBox.Value},
+            {"high", _highBox.Value},
         };
     }
 
@@ -133,7 +151,7 @@ public partial class NASequencerNode : NANode
         var steps = new double[GetChildCount()];
         for (int i = 0; i < GetChildCount(); i++)
         {
-            steps[i] = (float)GetChild(i).Get("Value");
+            steps[i] = GetChild<SequenceStep>(i).Value;
         }
 
         return steps;
@@ -142,6 +160,8 @@ public partial class NASequencerNode : NANode
     public override void Deserialize(Dictionary state)
     {
         _indexBox.Value = state["index"].AsDouble();
+        _lowBox.Value = state["low"].AsDouble();
+        _highBox.Value = state["high"].AsDouble();
 
         // Ensure there are enough steps
         var stepValues = state["steps"].AsFloat64Array();
@@ -149,6 +169,8 @@ public partial class NASequencerNode : NANode
         {
             AddStep();
         }
+        
+        SetLimits();
 
         for (int i = 0; i < stepValues.Length; i++)
         {
@@ -178,6 +200,8 @@ public partial class NASequencerNode : NANode
     private readonly List<SequenceStep> _steps = new List<SequenceStep>();
     private Button _removeButton;
     private SpinBox _indexBox;
+    private SpinBox _lowBox;
+    private SpinBox _highBox;
 
     private double _time = 0.0;
     private double _nextTrigger = 0.0;

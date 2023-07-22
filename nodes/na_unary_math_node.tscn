@@ -30,7 +30,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
-item_count = 9
+item_count = 11
 selected = 0
 popup/item_0/text = "Negate"
 popup/item_0/id = 0
@@ -50,6 +50,10 @@ popup/item_7/text = "Log"
 popup/item_7/id = 7
 popup/item_8/text = "Fract"
 popup/item_8/id = 8
+popup/item_9/text = "ToFrequency"
+popup/item_9/id = 9
+popup/item_10/text = "ToPitch"
+popup/item_10/id = 10
 
 [node name="Label2" type="Label" parent="Top"]
 layout_mode = 2

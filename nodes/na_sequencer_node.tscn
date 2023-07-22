@@ -101,7 +101,6 @@ alignment = 1
 
 [node name="Label" type="Label" parent="Limits"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "to"
 horizontal_alignment = 1
 

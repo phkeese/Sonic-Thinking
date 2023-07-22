@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using NAudio.Wave;
 using SonicThinking.scripts.sample_providers;
 
@@ -30,6 +31,27 @@ public partial class NaRemapNode : NANode, ISampleProvider
 		}
 
 		return total;
+	}
+
+	public override Dictionary Serialize()
+	{
+		return new Dictionary()
+		{
+			{ "fromMin", _fromMin.Value },
+			{ "fromMax", _fromMax.Value },
+			{ "toMin", _toMin.Value },
+			{ "toMax", _toMax.Value },
+			{ "clamp", _clamp.ButtonPressed},
+		};
+	}
+
+	public override void Deserialize(Dictionary state)
+	{
+		_fromMin.Value = state["fromMin"].AsDouble();
+		_fromMax.Value = state["fromMax"].AsDouble();
+		_toMin.Value = state["toMin"].AsDouble();
+		_toMax.Value = state["toMax"].AsDouble();
+		_clamp.ButtonPressed = state["clamp"].AsBool();
 	}
 
 	public WaveFormat WaveFormat => DefaultWaveFormat;

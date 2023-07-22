@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Godot.Collections;
 using NAudio.Wave;
 using SonicThinking.scripts.nodes;
 using SonicThinking.scripts.sample_providers;
@@ -39,6 +40,8 @@ public partial class NAUnaryMathNode : NANode, ISampleProvider
 		Exp,
 		Log,
 		Fraction,
+		ToFrequency,
+		ToVoltage,
 	}
 
 	private OptionButton _operationSelect;
@@ -65,6 +68,8 @@ public partial class NAUnaryMathNode : NANode, ISampleProvider
 				Operation.Exp => Mathf.Exp(left),
 				Operation.Log => Mathf.Log(left),
 				Operation.Fraction => left - Mathf.Floor(left),
+				Operation.ToFrequency => VoltageToFrequency(left),
+				Operation.ToVoltage => FrequencyToVoltage(left),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 		}
@@ -73,4 +78,17 @@ public partial class NAUnaryMathNode : NANode, ISampleProvider
 	}
 
 	public WaveFormat WaveFormat => DefaultWaveFormat;
+
+	public override Dictionary Serialize()
+	{
+		return new Dictionary()
+		{
+			{ "operation", _operationSelect.Selected }
+		};
+	}
+
+	public override void Deserialize(Dictionary state)
+	{
+		_operationSelect.Selected = state["operation"].AsInt32();
+	}
 }
