@@ -24,18 +24,9 @@ public partial class NAUnaryMathNode : NANode, ISampleProvider
 					throw new ArgumentException();
 			}
 		};
-
-		Compositor.ForceCache += _cache.Force;
-		Compositor.ClearCache += _cache.Clear;
 	}
 
-	public override void _ExitTree()
-	{
-		Compositor.ForceCache -= _cache.Force;
-		Compositor.ClearCache -= _cache.Clear;
-	}
-
-	protected override ISampleProvider GetOutput(int port) => _cache;
+	protected override ISampleProvider GetOutput(int port) => this;
 
 	private enum Operation
 	{
@@ -53,12 +44,6 @@ public partial class NAUnaryMathNode : NANode, ISampleProvider
 	private OptionButton _operationSelect;
 	private Operation _operation = Operation.Negate;
 	private readonly RebindingProvider _leftInput = new(), _rightInput = new();
-	private readonly CachingSampleProvider _cache;
-
-	public NAUnaryMathNode()
-	{
-		_cache = new CachingSampleProvider(this);
-	}
 
 	public int Read(float[] buffer, int offset, int count)
 	{
