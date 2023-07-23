@@ -5,8 +5,9 @@
 
 [node name="NAConstantNode" type="GraphNode"]
 offset_right = 313.0
-offset_bottom = 103.0
+offset_bottom = 138.0
 title = "Constant"
+show_close = true
 slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
@@ -30,7 +31,6 @@ script = ExtResource("1_g6fln")
 [node name="Slider" parent="." instance=ExtResource("2_l4xqg")]
 layout_mode = 2
 Step = 0.001
-Editable = true
 
 [node name="Exp" type="CheckBox" parent="Slider/TopRow" index="1"]
 unique_name_in_owner = true

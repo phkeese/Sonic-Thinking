@@ -6,29 +6,48 @@ extends Panel
 @onready var _workspace := $VBoxContainer/NAWorkspace
 
 
+var _filepath : String
+
+
 func _on_file_id_pressed(id: int):
 	match id:
 		0: _open_dialog.popup()
-		1: _save_dialog.popup()
+		1: _save()
+		2: _save_dialog.popup()
 		3: _workspace.Clear()
 
 
-func _on_save_dialog_file_selected(path: String):
-	print_debug("Saving to %s" % path)
+func _save():
+	if _filepath == "":
+		_save_dialog.show()
+		return
+	
+	print_debug("Saving to %s" % _filepath)
 	var state = $VBoxContainer/NAWorkspace.Serialize()
-	var file = FileAccess.open(path, FileAccess.WRITE)
+	var file = FileAccess.open(_filepath, FileAccess.WRITE)
 	file.store_var(state)
 	file.close()
 
 
 
-func _on_open_dialog_file_selected(path: String):
-	print_debug("Loading %s" % path)
-	var file = FileAccess.open(path, FileAccess.READ)
+func _open():
+	if _filepath == "":
+		_open_dialog.show()
+		return
+	
+	print_debug("Loading %s" % _filepath)
+	var file = FileAccess.open(_filepath, FileAccess.READ)
 	var content = file.get_var(false)
 	
 	_workspace.Clear()
 	_workspace.Deserialize(content)
 	
 
+func _on_save_dialog_file_selected(path):
+	_filepath = path
+	_save()
 
+
+func _on_open_dialog_file_selected(path):
+	_filepath = path
+	_open()

@@ -4,6 +4,7 @@
 offset_right = 36.0
 offset_bottom = 54.0
 title = "Fader"
+show_close = true
 slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)

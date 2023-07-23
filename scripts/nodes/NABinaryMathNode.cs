@@ -85,6 +85,8 @@ public partial class NABinaryMathNode : NANode, ISampleProvider
 
 	public override void Deserialize(Dictionary state)
 	{
-		_operationSelect.Selected = state["operation"].AsInt32();
+		var operation = state["operation"].AsInt32();
+		_operationSelect.Selected = operation;
+		_operation = (Operation)operation;
 	}
 }

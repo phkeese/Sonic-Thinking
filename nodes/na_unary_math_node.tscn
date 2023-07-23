@@ -3,9 +3,10 @@
 [ext_resource type="Script" path="res://scripts/nodes/NAUnaryMathNode.cs" id="1_kod3s"]
 
 [node name="UnaryMathNode" type="GraphNode"]
-offset_right = 232.0
+offset_right = 266.0
 offset_bottom = 85.0
 title = "Unary Math Node"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 4
 slot/0/left_color = Color(0.632053, 0.342461, 1, 1)

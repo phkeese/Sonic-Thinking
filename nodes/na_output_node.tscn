@@ -4,9 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://behciv7n2c01g" path="res://scenes/helpers/slider_input.tscn" id="2_mmswl"]
 
 [node name="OutputNode" type="GraphNode"]
-offset_right = 272.0
+offset_right = 182.0
 offset_bottom = 105.0
 title = "Output Node"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 1
 slot/0/left_color = Color(1, 0, 0, 1)

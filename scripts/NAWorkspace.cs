@@ -18,8 +18,9 @@ public partial class NAWorkspace : GraphEdit
 		}
 		
 		
-		ConnectionRequest += OnConnectionRequest;
-		DisconnectionRequest += OnDisconnectionRequest;
+		ConnectionRequest += ConnectNodes;
+		DisconnectionRequest += DisconnectNodes;
+		DeleteNodesRequest += DeleteNodes;
 
 		_nodeMenu = GetNode<PopupMenu>("NodeMenu");
 		foreach (var scene in NodeScenes)
@@ -30,7 +31,7 @@ public partial class NAWorkspace : GraphEdit
 			_nodeMenu.AddItem(name);
 		}
 
-		_nodeMenu.IndexPressed += OnNodeSpawnRequested;
+		_nodeMenu.IndexPressed += SpawnNode;
 
 		PopupRequest += position =>
 		{
@@ -38,6 +39,37 @@ public partial class NAWorkspace : GraphEdit
 			_nodeMenu.Position = (Vector2I)screenPos;
 			_nodeMenu.Popup();
 		};
+	}
+
+	private void DeleteNodes(Array nodes)
+	{
+		foreach (var nodeName in nodes)
+		{
+			var naNode = GetNode<NANode>(nodeName.AsString());
+			DeleteNode(naNode);
+		}
+	}
+
+	private void DeleteNode(NANode node)
+	{
+		Isolate(node);
+		RemoveChild(node);
+		_nodes.Remove(node);
+		node.QueueFree();
+	}
+
+	private void Isolate(NANode naNode)
+	{
+		foreach (var connection in GetConnectionList())
+		{
+			// Only consider connections of this node.
+			if (!(connection["from"].AsString().Equals(naNode.Name)) && !(connection["to"].AsString().Equals(naNode.Name)))
+			{
+				continue;
+			}
+			
+			DisconnectNodes(connection["from"].AsStringName(), connection["from_port"].AsInt32(), connection["to"].AsStringName(),connection["to_port"].AsInt32());
+		}
 	}
 
 	/// <summary>
@@ -165,17 +197,19 @@ public partial class NAWorkspace : GraphEdit
 	}
 
 	
-	private void OnNodeSpawnRequested(long index)
+	private void SpawnNode(long index)
 	{
 		var position = _nodeMenu.Position - GetScreenPosition();
 		var instance = NodeScenes[index].Instantiate<NANode>();
+		instance.CloseRequest += () => DeleteNode(instance);
 
 		AddChild(instance);
 		instance.PositionOffset = position;
 		_nodes.Add(instance);
 	}
 
-	private void OnDisconnectionRequest(StringName fromName, long fromPort, StringName toName, long toPort)
+
+	private void DisconnectNodes(StringName fromName, long fromPort, StringName toName, long toPort)
 	{
 		NANode from = GetNode<NANode>(fromName.ToString());
 		NANode to = GetNode<NANode>(toName.ToString());
@@ -185,7 +219,7 @@ public partial class NAWorkspace : GraphEdit
 			to.DisconnectInput(from, (int)fromPort, (int)toPort);
 		}
 		
-		DisconnectNode(fromName, (int)fromPort, toName, (int)toPort);
+		base.DisconnectNode(fromName, (int)fromPort, toName, (int)toPort);
 	}
 
 	private bool IsInputTaken(StringName toName, long toPort)
@@ -200,7 +234,7 @@ public partial class NAWorkspace : GraphEdit
 		return false;
 	}
 
-	private void OnConnectionRequest(StringName fromName, long fromPort, StringName toName, long toPort)
+	private void ConnectNodes(StringName fromName, long fromPort, StringName toName, long toPort)
 	{
 		if (IsInputTaken(toName, toPort)) ForceDisconnect(toName, toPort);
 		
@@ -225,7 +259,7 @@ public partial class NAWorkspace : GraphEdit
 			{
 				var fromName = connection["from"].AsStringName();
 				var fromPort = connection["from_port"].AsInt32();
-				OnDisconnectionRequest(fromName, fromPort, toName, toPort);
+				DisconnectNodes(fromName, fromPort, toName, toPort);
 			}
 		}
 	}

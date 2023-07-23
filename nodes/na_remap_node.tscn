@@ -6,6 +6,7 @@
 offset_right = 288.0
 offset_bottom = 153.0
 title = "Remap Node"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 4
 slot/0/left_color = Color(0.632053, 0.342461, 1, 1)

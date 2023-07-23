@@ -3,7 +3,10 @@
 [ext_resource type="Script" path="res://scripts/nodes/NACounterNode.cs" id="1_r733y"]
 
 [node name="NACounterNode" type="GraphNode"]
+offset_right = 139.0
+offset_bottom = 118.0
 title = "Counter"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 2
 slot/0/left_color = Color(0.282353, 1, 0, 1)

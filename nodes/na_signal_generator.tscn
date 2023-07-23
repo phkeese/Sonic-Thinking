@@ -6,9 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://behciv7n2c01g" path="res://scenes/helpers/slider_input.tscn" id="3_8sop7"]
 
 [node name="NASignalGenerator" type="GraphNode"]
-offset_right = 327.0
+offset_right = 339.0
 offset_bottom = 324.0
 title = "Oscillator"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 2
 slot/0/left_color = Color(0.282353, 1, 0, 1)

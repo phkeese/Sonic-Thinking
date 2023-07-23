@@ -3,7 +3,10 @@
 [ext_resource type="Script" path="res://scripts/nodes/NAMidiInputNode.cs" id="1_vstif"]
 
 [node name="NAMidiInput" type="GraphNode"]
+offset_right = 191.0
+offset_bottom = 102.0
 title = "MIDI Keyboard"
+show_close = true
 slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)

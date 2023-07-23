@@ -2,8 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/nodes/NACacheNode.cs" id="1_dcmha"]
 
-[node name="NACacheNode" type="GraphNode"]
-title = "Cache Node"
+[node name="NACastNode" type="GraphNode"]
+offset_right = 169.0
+offset_bottom = 80.0
+title = "Cast Node"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 4
 slot/0/left_color = Color(0.632053, 0.342461, 1, 1)
@@ -17,5 +20,6 @@ script = ExtResource("1_dcmha")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-text = "Cache"
+text = "
+"
 horizontal_alignment = 1

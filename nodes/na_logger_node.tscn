@@ -7,6 +7,7 @@
 offset_right = 324.0
 offset_bottom = 187.0
 title = "Logger"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 4
 slot/0/left_color = Color(0.632053, 0.342461, 1, 1)

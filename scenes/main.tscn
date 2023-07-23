@@ -47,11 +47,11 @@ item_2/icon = ExtResource("3_r2dbh")
 item_2/id = 1
 item_3/text = "Save As..."
 item_3/id = 2
-item_3/disabled = true
 
 [node name="NAWorkspace" parent="VBoxContainer" instance=ExtResource("8_tl6xe")]
 layout_mode = 2
 size_flags_vertical = 3
+scroll_offset = Vector2(0, -35)
 
 [node name="SaveDialog" type="FileDialog" parent="."]
 initial_position = 1

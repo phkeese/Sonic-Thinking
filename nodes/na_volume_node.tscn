@@ -3,9 +3,10 @@
 [ext_resource type="Script" path="res://scripts/nodes/NAVolumeNode.cs" id="1_yb815"]
 
 [node name="NAVolumeNode" type="GraphNode"]
-offset_right = 238.0
+offset_right = 182.0
 offset_bottom = 103.0
 title = "Adjust Volume"
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 1
 slot/0/left_color = Color(1, 0, 0, 1)
