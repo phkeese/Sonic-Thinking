@@ -127,6 +127,7 @@ public partial class NASequencerNode : NANode
             Value = 0.5f
         };
         var triggerEdge = new EdgeDetectorProvider(source: _triggerInput, threshold: half);
+        triggerEdge.Mode = EdgeDetectorProvider.TriggerMode.Rising;
         _counter = new CountingSampleProvider(trigger: triggerEdge);
         _indexPrio = new PrioritySampleProvider(fallback: _counter);
 

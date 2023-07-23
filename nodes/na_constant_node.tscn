@@ -30,15 +30,11 @@ script = ExtResource("1_g6fln")
 
 [node name="Slider" parent="." instance=ExtResource("2_l4xqg")]
 layout_mode = 2
-Step = 0.001
 
 [node name="Exp" type="CheckBox" parent="Slider/TopRow" index="1"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Exp"
-
-[node name="SpinBox" parent="Slider/TopRow" index="2"]
-step = 0.001
 
 [node name="Slider" parent="Slider" index="1"]
 step = 0.001
@@ -50,9 +46,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 2
-max_value = 20000.0
-step = 0.001
-value = 440.0
+max_value = 1.0
+step = 0.01
 allow_greater = true
 allow_lesser = true
 alignment = 1
@@ -68,9 +63,9 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 10
-max_value = 20000.0
-step = 0.001
-value = 1000.0
+max_value = 1.0
+step = 0.01
+value = 1.0
 allow_greater = true
 allow_lesser = true
 alignment = 1

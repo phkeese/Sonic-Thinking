@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/nodes/NAUnaryMathNode.cs" id="1_kod3s"]
 
 [node name="UnaryMathNode" type="GraphNode"]
-offset_right = 266.0
+offset_right = 214.0
 offset_bottom = 85.0
 title = "Unary Math Node"
 show_close = true
@@ -20,11 +20,6 @@ script = ExtResource("1_kod3s")
 
 [node name="Top" type="HBoxContainer" parent="."]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="Top"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Left"
 
 [node name="Operation" type="OptionButton" parent="Top"]
 unique_name_in_owner = true
@@ -51,13 +46,7 @@ popup/item_7/text = "Log"
 popup/item_7/id = 7
 popup/item_8/text = "Fract"
 popup/item_8/id = 8
-popup/item_9/text = "ToFrequency"
+popup/item_9/text = "PitchToHz"
 popup/item_9/id = 9
-popup/item_10/text = "ToPitch"
+popup/item_10/text = "HzToPitch"
 popup/item_10/id = 10
-
-[node name="Label2" type="Label" parent="Top"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Result"
-horizontal_alignment = 2

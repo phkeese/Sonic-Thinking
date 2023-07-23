@@ -35,6 +35,7 @@ public partial class NAWorkspace : GraphEdit
 
 		PopupRequest += position =>
 		{
+			_spawnPosition = (GetViewport().GetMousePosition() + ScrollOffset) / Zoom;;
 			var screenPos = GetScreenPosition() + position;
 			_nodeMenu.Position = (Vector2I)screenPos;
 			_nodeMenu.Popup();
@@ -199,12 +200,11 @@ public partial class NAWorkspace : GraphEdit
 	
 	private void SpawnNode(long index)
 	{
-		var position = _nodeMenu.Position - GetScreenPosition();
 		var instance = NodeScenes[index].Instantiate<NANode>();
 		instance.CloseRequest += () => DeleteNode(instance);
 
 		AddChild(instance);
-		instance.PositionOffset = position;
+		instance.PositionOffset = _spawnPosition;
 		_nodes.Add(instance);
 	}
 
@@ -263,9 +263,11 @@ public partial class NAWorkspace : GraphEdit
 			}
 		}
 	}
+	
+	[Export] public PackedScene[] NodeScenes = new PackedScene[]{};
 
 	private PopupMenu _nodeMenu;
-	private List<NANode> _nodes = new List<NANode>();
+	private readonly List<NANode> _nodes = new List<NANode>();
+	private Vector2 _spawnPosition = new Vector2();
 
-	[Export] public PackedScene[] NodeScenes = new PackedScene[]{};
 }
