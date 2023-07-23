@@ -9,10 +9,11 @@ class LUTSignalGenerator : ISampleProvider
 {
     private double _phase;
     private readonly ISampleProvider _frequencySource;
+    private readonly ISampleProvider _restartSource;
 
-    public LUTSignalGenerator(ISampleProvider frequencySource)
+    public LUTSignalGenerator(ISampleProvider frequencySource, ISampleProvider restartSource)
     {
-        if (!Equals(frequencySource.WaveFormat, NANode.DefaultWaveFormat))
+        if (!Equals(frequencySource.WaveFormat, NANode.DefaultWaveFormat) || !Equals(restartSource.WaveFormat, NANode.DefaultWaveFormat))
         {
             throw new ArgumentException(
                 "Frequency provider must have single channel, project sample rate and float encoding.");
@@ -21,6 +22,7 @@ class LUTSignalGenerator : ISampleProvider
         int sampleRate = WaveFormat.SampleRate;
 
         _frequencySource = frequencySource;
+        _restartSource = restartSource;
     }
 
     public WaveFormat WaveFormat => NANode.DefaultWaveFormat;
@@ -28,10 +30,24 @@ class LUTSignalGenerator : ISampleProvider
     public int Read(float[] buffer, int offset, int count)
     {
         // Read next n frequency samples
-        float[] vpos = ReadFrequency(buffer.Length, offset, count);
-
-        for (int i = 0; i < count; ++i)
+        var  (vpoCount,vpos) = ReadFrom(_frequencySource, buffer.Length, offset, count);
+        var (restartCount,restarts) = ReadFrom(_restartSource, buffer.Length, offset, count);
+        var valid = Math.Min(vpoCount, restartCount);
+        
+        for (int i = 0; i < valid; ++i)
         {
+            var doRestart = restarts[offset + i] > 0.5;
+            if (doRestart)
+            {
+                _phase = 0;
+            }
+
+            if (_phase > WaveTable.Length && Oneshot)
+            {
+                buffer[offset + i] = 0;
+                continue;
+            }
+            
             float vpo = vpos[i + offset];
             float frequency = NANode.VoltageToFrequency(vpo);
             float phaseStep = WaveTable.Length * (frequency / WaveFormat.SampleRate);
@@ -39,7 +55,7 @@ class LUTSignalGenerator : ISampleProvider
             int waveTableIndex = Mathf.PosMod((int)_phase, WaveTable.Length);
             buffer[i + offset] = WaveTable[waveTableIndex];
             _phase += phaseStep;
-            if (_phase > WaveTable.Length)
+            if (_phase > WaveTable.Length && !Oneshot)
             {
                 _phase -= WaveTable.Length;
             }
@@ -48,12 +64,12 @@ class LUTSignalGenerator : ISampleProvider
         return count;
     }
 
-    private float[] ReadFrequency(int bufferSize, int offset, int count)
+    private (int,float[]) ReadFrom(ISampleProvider source, int bufferLength, int offset, int count)
     {
-        var buffer = new float[bufferSize];
-        _frequencySource.Read(buffer, offset, count);
-        return buffer;
+        var buffer = new float[bufferLength];
+        return (source.Read(buffer, offset, count), buffer);
     }
 
     public float[] WaveTable;
+    public bool Oneshot = false;
 }

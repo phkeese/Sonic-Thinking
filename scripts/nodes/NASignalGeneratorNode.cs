@@ -21,6 +21,7 @@ public partial class NASignalGeneratorNode : NANode
             { "waveform", _waveTable.Wave },
             { "preset", _waveSelect.Selected},
             { "size", Size},
+            { "oneshot", _oneshotInput.ButtonPressed},
         };
     }
 
@@ -30,6 +31,7 @@ public partial class NASignalGeneratorNode : NANode
         _volumeInput.Value = state["volume"].AsDouble();
         _waveSelect.Selected = state["preset"].AsInt32();
         Size = state.GetValueOrDefault("size", Size).AsVector2();
+        _oneshotInput.ButtonPressed = state.GetValueOrDefault("oneshot", false).AsBool();
         state["waveform"].AsFloat32Array().CopyTo((Span<float>)_waveTable.Wave);
     }
 
@@ -52,6 +54,9 @@ public partial class NASignalGeneratorNode : NANode
         _waveSelect = GetNode<OptionButton>("Waveform/Options");
         _waveSelect.ItemSelected += index => LoadPreset((int)index);
 
+        _oneshotInput = GetNode<CheckBox>("%Oneshot");
+        _oneshotInput.Toggled += pressed => _generator.Oneshot = pressed;
+        
         InputChanged += OnInputChanged;
 
         // Connect cache to relevant signals
@@ -76,6 +81,9 @@ public partial class NASignalGeneratorNode : NANode
             case VolumePort:
                 _volume.Source = input;
                 _volumeInput.Editable = input == null;
+                break;
+            case RestartPort:
+                _restart.Source = input;
                 break;
             default:
                 throw new IndexOutOfRangeException("Invalid input slot.");
@@ -120,6 +128,8 @@ public partial class NASignalGeneratorNode : NANode
 
     private const int FrequencyPort = 0;
     private const int VolumePort = 1;
+    private const int RestartPort = 2;
+    
 
     private SliderInput _frequencyInput;
     private readonly ConstantSampleProvider _constantFrequency = new ConstantSampleProvider();
@@ -135,10 +145,13 @@ public partial class NASignalGeneratorNode : NANode
     private readonly PrioritySampleProvider _volume;
     private readonly CachingSampleProvider _output;
 
+    private CheckBox _oneshotInput;
+    private readonly RebindingProvider _restart = new();
+
     public NASignalGeneratorNode()
     {
         _frequency = new PrioritySampleProvider(_constantFrequency);
-        _generator = new LUTSignalGenerator(_frequency);
+        _generator = new LUTSignalGenerator(_frequency, _restart);
         _volume = new PrioritySampleProvider(_constantVolume);
 
         var scaledOutput = new ScalingSampleProvider(_generator, _volume);

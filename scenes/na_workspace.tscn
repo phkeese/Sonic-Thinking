@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cuntk4a4wou5j"]
+[gd_scene load_steps=15 format=3 uid="uid://cuntk4a4wou5j"]
 
 [ext_resource type="Script" path="res://scripts/NAWorkspace.cs" id="1_er6ky"]
 [ext_resource type="PackedScene" uid="uid://bvkmrlvvwdkmh" path="res://nodes/na_output_node.tscn" id="1_i8se7"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ny3ffukf4jmv" path="res://nodes/na_binary_math_node.tscn" id="12_a6ib0"]
 [ext_resource type="PackedScene" uid="uid://de4gdy4xqxyi6" path="res://nodes/na_counter_node.tscn" id="12_on0o8"]
 [ext_resource type="PackedScene" uid="uid://4kmynhgk8bga" path="res://nodes/na_unary_math_node.tscn" id="13_7xg43"]
+[ext_resource type="PackedScene" uid="uid://do4esemtxpgyr" path="res://nodes/na_manual_trigger_node.tscn" id="14_pwcha"]
 [ext_resource type="PackedScene" uid="uid://dhn6ecfrrgmlo" path="res://nodes/na_remap_node.tscn" id="14_rkucy"]
 [ext_resource type="PackedScene" uid="uid://dr6xhkl87eud1" path="res://nodes/na_midi_input.tscn" id="15_jpwrl"]
 
@@ -25,6 +26,6 @@ show_zoom_label = true
 minimap_enabled = false
 arrange_nodes_button_hidden = true
 script = ExtResource("1_er6ky")
-NodeScenes = [ExtResource("1_i8se7"), ExtResource("2_d67l1"), ExtResource("2_1q2g5"), ExtResource("6_0ookn"), ExtResource("11_corss"), ExtResource("12_on0o8"), ExtResource("12_a6ib0"), ExtResource("13_7xg43"), ExtResource("14_rkucy"), ExtResource("10_7pkg5"), ExtResource("15_jpwrl"), ExtResource("7_saxr7")]
+NodeScenes = [ExtResource("1_i8se7"), ExtResource("2_d67l1"), ExtResource("2_1q2g5"), ExtResource("6_0ookn"), ExtResource("11_corss"), ExtResource("12_on0o8"), ExtResource("12_a6ib0"), ExtResource("13_7xg43"), ExtResource("14_rkucy"), ExtResource("10_7pkg5"), ExtResource("15_jpwrl"), ExtResource("7_saxr7"), ExtResource("14_pwcha")]
 
 [node name="NodeMenu" type="PopupMenu" parent="."]

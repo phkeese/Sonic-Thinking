@@ -29,9 +29,9 @@ slot/1/right_type = 1
 slot/1/right_color = Color(1, 0, 0, 1)
 slot/1/right_icon = null
 slot/1/draw_stylebox = true
-slot/2/left_enabled = false
-slot/2/left_type = 0
-slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_enabled = true
+slot/2/left_type = 2
+slot/2/left_color = Color(0.282353, 1, 0, 1)
 slot/2/left_icon = null
 slot/2/right_enabled = false
 slot/2/right_type = 0
@@ -47,6 +47,15 @@ slot/3/right_type = 0
 slot/3/right_color = Color(1, 1, 1, 1)
 slot/3/right_icon = null
 slot/3/draw_stylebox = true
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
 script = ExtResource("1_bmuw5")
 
 [node name="Frequency" type="HBoxContainer" parent="."]
@@ -70,6 +79,20 @@ Value = 1.0
 Suffix = "/ 1"
 TickCount = 11
 TicksOnBorders = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Restart" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Restart"
+
+[node name="Oneshot" type="CheckBox" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Oneshot"
 
 [node name="Waveform" type="HBoxContainer" parent="."]
 layout_mode = 2
