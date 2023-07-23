@@ -27,7 +27,17 @@ public partial class SequenceStep : HBoxContainer, ISampleProvider
     public WaveFormat WaveFormat => NANode.DefaultWaveFormat;
 
 
-    public ISampleProvider Override = null;
+    private ISampleProvider _override = null;
+
+    public ISampleProvider Override
+    {
+        get => _override;
+        set
+        {
+            _override = value;
+            if (Edit != null) Edit.Editable = _override == null;
+        }
+    }
 
     private Color _activeColor = Colors.Red;
 
@@ -62,7 +72,7 @@ public partial class SequenceStep : HBoxContainer, ISampleProvider
         get => Edit.Editable;
         set
         {
-            if (Engine.IsEditorHint() && Edit != null) Edit.Editable = value;
+            if (Edit != null) Edit.Editable = value;
         }
     }
 

@@ -176,9 +176,9 @@ public partial class NAWorkspace : GraphEdit
 			node.PositionOffset = position;
 			node.Name = name;
 			node.Guid = guid;
-			
-			AddChild(node);
-			_nodes.Add(node);
+
+			// Need to add to tree before deserializing node to give it a chance to find its own child nodes.
+			Add(node);
 			
 			if (nodeState.TryGetValue("state", out var internalState))
 			{
@@ -197,15 +197,26 @@ public partial class NAWorkspace : GraphEdit
 		}
 	}
 
-	
+	private void Add(NANode node)
+	{
+		AddChild(node);
+		_nodes.Add(node);
+		node.CloseRequest += () => DeleteNode(node);
+		node.ResizeRequest += minsize => ResizeNode(node, minsize);
+	}
+
+	private void ResizeNode(NANode node, Vector2 minSize)
+	{
+		node.Size = minSize;
+	}
+
+
 	private void SpawnNode(long index)
 	{
 		var instance = NodeScenes[index].Instantiate<NANode>();
-		instance.CloseRequest += () => DeleteNode(instance);
-
-		AddChild(instance);
 		instance.PositionOffset = _spawnPosition;
-		_nodes.Add(instance);
+
+		Add(instance);
 	}
 
 

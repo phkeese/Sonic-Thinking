@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
 using NAudio.Wave;
@@ -19,6 +20,7 @@ public partial class NASignalGeneratorNode : NANode
             { "volume", _volumeInput.Value },
             { "waveform", _waveTable.Wave },
             { "preset", _waveSelect.Selected},
+            { "size", Size},
         };
     }
 
@@ -27,6 +29,7 @@ public partial class NASignalGeneratorNode : NANode
         _frequencyInput.Value = state["frequency"].AsDouble();
         _volumeInput.Value = state["volume"].AsDouble();
         _waveSelect.Selected = state["preset"].AsInt32();
+        Size = state.GetValueOrDefault("size", Size).AsVector2();
         state["waveform"].AsFloat32Array().CopyTo((Span<float>)_waveTable.Wave);
     }
 
