@@ -118,7 +118,7 @@ text = "Waveform"
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
-item_count = 5
+item_count = 7
 selected = 0
 popup/item_0/text = "Sine"
 popup/item_0/id = 0
@@ -130,6 +130,10 @@ popup/item_3/text = "Triangle"
 popup/item_3/id = 3
 popup/item_4/text = "Random"
 popup/item_4/id = 4
+popup/item_5/text = "Ramp Up"
+popup/item_5/id = 5
+popup/item_6/text = "Ramp Down"
+popup/item_6/id = 6
 
 [node name="WaveTable" parent="." instance=ExtResource("2_yn7qc")]
 layout_mode = 2

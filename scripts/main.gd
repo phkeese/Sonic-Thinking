@@ -14,7 +14,10 @@ func _on_file_id_pressed(id: int):
 		0: _open_dialog.popup()
 		1: _save()
 		2: _save_dialog.popup()
-		3: _workspace.Clear()
+		3: 
+			_workspace.Clear()
+			_filepath = ""
+			_save_dialog.current_file = ""
 
 
 func _save():

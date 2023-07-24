@@ -113,6 +113,12 @@ public partial class NASignalGeneratorNode : NANode
 
             // Random Noise
             4 => phi => Mathf.Remap(GD.Randf(), 0, 1, 1, -1),
+            
+            // Ramp Up
+            5 => phi => Mathf.Lerp(-1,1,phi),
+            
+            // Ramp Down
+            6 => phi => Mathf.Lerp(1,-1,phi),
 
             // Invalid Index!
             _ => throw new ArgumentOutOfRangeException(nameof(index), index, null)
