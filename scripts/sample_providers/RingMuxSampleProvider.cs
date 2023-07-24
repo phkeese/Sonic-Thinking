@@ -31,11 +31,17 @@ public class RingMuxSampleProvider : ISampleProvider
             var index = indices[offset + i];
             var low = Mathf.PosMod(Mathf.FloorToInt(index), buffers.Length);
             var high = Mathf.PosMod(Mathf.CeilToInt(index), buffers.Length);
+            // t = fract(index)
             var t = index - Mathf.Floor(index);
+
+            // Perform equal power crossfade to preserve volume instead of linear interpolation.
+            // https://dsp.stackexchange.com/a/14755 
+            var leftT = Mathf.Sqrt(1 - t);
+            var rightT = Mathf.Sqrt(t);
 
             var s0 = buffers[low][offset + i];
             var s1 = buffers[high][offset + i];
-            var s = Mathf.Lerp(s0, s1, t);
+            var s = s0 * leftT + s1 * rightT;
 
             outputBuffer[offset + i] = (float)s;
         }
