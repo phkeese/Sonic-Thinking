@@ -39,7 +39,7 @@ class LUTSignalGenerator : ISampleProvider
             var doRestart = restarts[offset + i] > 0.5;
             if (doRestart)
             {
-                _phase = 0;
+                _phase = ResetPhaseOffset * WaveTable.Length;
             }
 
             if (_phase > WaveTable.Length && Oneshot)
@@ -72,4 +72,5 @@ class LUTSignalGenerator : ISampleProvider
 
     public float[] WaveTable;
     public bool Oneshot = false;
+    public float ResetPhaseOffset = 0;
 }

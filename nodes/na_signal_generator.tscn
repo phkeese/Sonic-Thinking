@@ -88,6 +88,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Restart"
 
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "PO"
+
+[node name="PhaseOffset" type="SpinBox" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+alignment = 1
+select_all_on_focus = true
+
 [node name="Oneshot" type="CheckBox" parent="HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2

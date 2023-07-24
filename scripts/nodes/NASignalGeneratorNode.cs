@@ -22,6 +22,7 @@ public partial class NASignalGeneratorNode : NANode
             { "preset", _waveSelect.Selected},
             { "size", Size},
             { "oneshot", _oneshotInput.ButtonPressed},
+            { "offset", _phaseOffsetInput.Value},
         };
     }
 
@@ -32,6 +33,7 @@ public partial class NASignalGeneratorNode : NANode
         _waveSelect.Selected = state["preset"].AsInt32();
         Size = state.GetValueOrDefault("size", Size).AsVector2();
         _oneshotInput.ButtonPressed = state.GetValueOrDefault("oneshot", false).AsBool();
+        _phaseOffsetInput.Value = state.GetValueOrDefault("offset", 0.0).AsDouble();
         state["waveform"].AsFloat32Array().CopyTo((Span<float>)_waveTable.Wave);
     }
 
@@ -56,6 +58,9 @@ public partial class NASignalGeneratorNode : NANode
 
         _oneshotInput = GetNode<CheckBox>("%Oneshot");
         _oneshotInput.Toggled += pressed => _generator.Oneshot = pressed;
+
+        _phaseOffsetInput = GetNode<SpinBox>("%PhaseOffset");
+        _phaseOffsetInput.ValueChanged += value => _generator.ResetPhaseOffset = (float)value;
         
         InputChanged += OnInputChanged;
 
@@ -147,6 +152,7 @@ public partial class NASignalGeneratorNode : NANode
 
     private CheckBox _oneshotInput;
     private readonly RebindingProvider _restart = new();
+    private SpinBox _phaseOffsetInput;
 
     public NASignalGeneratorNode()
     {
